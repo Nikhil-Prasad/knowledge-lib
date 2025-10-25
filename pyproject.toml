@@ -36,6 +36,7 @@ dependencies = [
 
   # LLM clients (optional at runtime; safe to keep)
   "openai>=1.0",
+  "python-dotenv>=1.0",
 ]
 
 [project.optional-dependencies]

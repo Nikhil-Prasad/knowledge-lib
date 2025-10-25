@@ -2,6 +2,7 @@
 from __future__ import annotations
 import os, sys
 from logging.config import fileConfig
+from dotenv import load_dotenv
 
 from alembic import context
 from sqlalchemy import create_engine, pool
@@ -18,6 +19,9 @@ from src.app.db.models.models import Base
 config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+# Load root .env so DATABASE_URL is available
+load_dotenv()
 
 # Prefer DATABASE_URL env; fallback to alembic.ini sqlalchemy.url
 DB_URL = os.getenv("DATABASE_URL", config.get_main_option("sqlalchemy.url"))
