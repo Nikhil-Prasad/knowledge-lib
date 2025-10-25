@@ -1,0 +1,101 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "knowledge-lib"
+version = "0.1.0"
+description = "Knowledge ingestion & hybrid retrieval server (Postgres/pgvector + MinIO)."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Nikhil" }]
+
+dependencies = [
+  # API
+  "fastapi>=0.111",
+  "uvicorn[standard]>=0.30",
+  "pydantic>=2.12.3",
+  "pydantic-settings>=2.11.0",
+  "python-multipart>=0.0.9",        # for file uploads to /ingest
+
+  # DB + vectors
+  "sqlalchemy>=2.0",
+  "psycopg2-binary>=2.9",
+  "alembic>=1.13",
+  "pgvector>=0.3.3",
+
+  # Storage / IO
+  "minio>=7.2.7",
+  "httpx>=0.27",
+
+  # Observability
+  "opentelemetry-api>=1.20",
+  "opentelemetry-sdk>=1.20",
+  "opentelemetry-instrumentation-fastapi>=0.41b0",
+  "opentelemetry-exporter-otlp>=1.20",
+
+  # LLM clients (optional at runtime; safe to keep)
+  "openai>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "pytest-asyncio>=0.23",
+  "pytest-cov>=5.0",
+  "hypothesis>=6.98",
+  "ruff>=0.5",
+  "mypy>=1.10",
+  "types-requests>=2.32.0.20240914",
+]
+evals = [
+  # if/when you wire the eval runner
+  "pandas>=2.2",
+  "matplotlib>=3.9",
+]
+# add these later only if you actually use them:
+pdf = [
+  "pymupdf>=1.24.9",      # page text + renders
+  "pdfminer.six>=20231228",
+]
+reranker = [
+  "sentence-transformers>=3.0.1",
+  "torch>=2.3; platform_system!='Darwin' or platform_machine!='arm64'",
+]
+
+[project.urls]
+homepage = "https://github.com/your-org/knowledge-lib"
+
+[tool.hatch.build.targets.wheel]
+# use a src/ layout; hatchling will package any Python pkgs under src/
+packages = ["src"]
+
+# --- Tooling ---
+
+[tool.pytest.ini_options]
+addopts = "-q"
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_unused_configs = true
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+strict_optional = false
+disallow_untyped_defs = false
+
+[tool.alembic]
+# Where Alembic lives if you followed the earlier layout suggestion
+script_location = "infra/alembic"
