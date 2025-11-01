@@ -34,6 +34,25 @@ Self‑contained API for ingestion and hybrid retrieval using Postgres (pgvector
 Makefile convenience:
 - make up    # docker compose up -d (Postgres + pgAdmin)
 - make down  # docker compose down
+- make api   # run FastAPI locally (uvicorn)
+
+## API Endpoints
+
+- Run server:
+  - `uv run uvicorn src.app.main:app --reload`
+
+- Health (unversioned):
+  - `GET /health/live` — liveness (process up; no DB).
+  - `GET /health/ready` — readiness (checks DB with `SELECT 1`).
+  - Alias: `GET /health/healthz` (compat; same as readiness).
+
+- v1 (business endpoints):
+  - `POST /v1/ingest/text`
+    - Request: `{ "title": "Demo", "text": "hello world ..." }`
+    - Response: `{ "doc_id": "<uuid>", "pages_created": 1, "chunks_created": 1 }`
+  - `POST /v1/search`
+    - Request: `{ "query": "hello", "k": 20 }`
+    - Response: `{ "results": [ { "doc_id": "...", "page_no": 1, "chunk_id": "...", "score": 0.42, "snippet": "..." } ] }`
 
 ## Environment Files
 

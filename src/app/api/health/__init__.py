@@ -1,0 +1,2 @@
+"""Health check routes package."""
+
