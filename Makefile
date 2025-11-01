@@ -2,7 +2,8 @@
 SHELL := /bin/bash
 
 COMPOSE_FILE := infra/docker/docker-compose.yml
-DC := docker compose -f $(COMPOSE_FILE)
+# Pass root .env to Compose so we have a single source of truth
+DC := docker compose --env-file .env -f $(COMPOSE_FILE)
 
 .PHONY: dc-up dc-down up down
 
