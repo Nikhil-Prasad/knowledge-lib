@@ -16,27 +16,24 @@ dependencies = [
   "uvicorn[standard]>=0.30",
   "pydantic>=2.12.3",
   "pydantic-settings>=2.11.0",
-  "python-multipart>=0.0.9",        # for file uploads to /ingest
-
+  "python-multipart>=0.0.9", # for file uploads to /ingest
   # DB + vectors
   "sqlalchemy>=2.0",
   "psycopg2-binary>=2.9",
   "alembic>=1.13",
   "pgvector>=0.3.3",
-
   # Storage / IO
   "minio>=7.2.7",
   "httpx>=0.27",
-
   # Observability
   "opentelemetry-api>=1.20",
   "opentelemetry-sdk>=1.20",
   "opentelemetry-instrumentation-fastapi>=0.41b0",
   "opentelemetry-exporter-otlp>=1.20",
-
   # LLM clients (optional at runtime; safe to keep)
   "openai>=1.0",
   "python-dotenv>=1.0",
+  "beir>=2.2.0",
 ]
 
 [project.optional-dependencies]

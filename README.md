@@ -35,6 +35,19 @@ Makefile convenience:
 - make up    # docker compose up -d (Postgres + pgAdmin)
 - make down  # docker compose down
 - make api   # run FastAPI locally (uvicorn)
+- make prepare-beir-scifact  # export BEIR SciFact to evals/datasets as per-doc .txt + manifest
+
+## Prepare BEIR SciFact (raw text)
+
+Export SciFact into per-document `.txt` files (no external deps):
+- make prepare-beir-scifact
+
+Outputs (under `evals/datasets`):
+- `evals/datasets/beir/processed/scifact/docs/*.txt` — UTF-8 text files, one per BEIR doc (title + blank line + body)
+- `evals/datasets/beir/processed/scifact/manifest.jsonl` — metadata per doc (source_uri, sha256, etc.)
+- `evals/datasets/beir/eval/scifact/queries.jsonl` — BEIR queries for the chosen split (if present)
+- `evals/datasets/beir/eval/scifact/qrels/test.tsv` — relevance labels (or split fallback)
+
 
 ## API Endpoints
 
