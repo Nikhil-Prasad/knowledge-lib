@@ -7,7 +7,7 @@ from sqlalchemy import text as sql_text
 from sqlalchemy.orm import Session
 
 from src.app.api.deps import get_db
-from src.app.schemas.search import SearchRequest, SearchResponse, SearchHit
+from src.app.api.v1.search.schemas import SearchRequest, SearchResponse, SearchHit
 
 
 router = APIRouter(prefix="/v1", tags=["v1"])
@@ -21,10 +21,10 @@ def search(req: SearchRequest, db: Session = Depends(get_db)) -> SearchResponse:
 
     sql = sql_text(
         """
-        SELECT c.doc_id, c.page_no, c.chunk_id,
+        SELECT c.container_id, c.page_no, c.segment_id,
                ts_rank_cd(c.text_fts, plainto_tsquery('simple', :q)) AS score,
                left(c.text, 200) AS snippet
-        FROM chunks c
+        FROM text_segments c
         WHERE c.text_fts @@ plainto_tsquery('simple', :q)
         ORDER BY score DESC
         LIMIT :k
@@ -34,13 +34,13 @@ def search(req: SearchRequest, db: Session = Depends(get_db)) -> SearchResponse:
 
     hits: List[SearchHit] = [
         SearchHit(
-            doc_id=row["doc_id"],
+            modality="text",
+            segment_id=row["segment_id"],
+            container_id=row["container_id"],
             page_no=row["page_no"],
-            chunk_id=row["chunk_id"],
             score=float(row["score"] or 0.0),
             snippet=row["snippet"],
         )
         for row in rows
     ]
     return SearchResponse(results=hits)
-

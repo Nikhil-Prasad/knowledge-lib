@@ -17,4 +17,3 @@ def create_app() -> FastAPI:
 
 app = create_app()
 
-# If you prefer running directly: `uv run uvicorn src.app.main:app --reload`

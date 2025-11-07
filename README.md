@@ -60,12 +60,12 @@ Outputs (under `evals/datasets`):
   - Alias: `GET /health/healthz` (compat; same as readiness).
 
 - v1 (business endpoints):
-  - `POST /v1/ingest/text`
-    - Request: `{ "title": "Demo", "text": "hello world ..." }`
-    - Response: `{ "doc_id": "<uuid>", "pages_created": 1, "chunks_created": 1 }`
+  - `POST /v1/ingest`
+    - Request: `{ "source": { "source_type": "raw_text", "title": "Demo", "text": "hello world ..." } }`
+    - Response: `{ "container_id": "<uuid>", "pages_created": 1, "segments_created": 1 }`
   - `POST /v1/search`
     - Request: `{ "query": "hello", "k": 20 }`
-    - Response: `{ "results": [ { "doc_id": "...", "page_no": 1, "chunk_id": "...", "score": 0.42, "snippet": "..." } ] }`
+    - Response: `{ "results": [ { "modality": "text", "segment_id": "...", "container_id": "...", "page_no": 1, "score": 0.42, "snippet": "..." } ] }`
 
 ## Environment Files
 
@@ -81,14 +81,14 @@ Alembic and the app load the root `.env` (via python‑dotenv). Docker Compose a
 ## Schema Summary
 
 Tables:
-- documents (PK: doc_id, metadata, timestamps)
-- chunks (PK: chunk_id; FK to documents; `text` + `text_fts` TSVECTOR with GIN index; `emb_v1` VECTOR(1536) with HNSW index)
-- pages (PK: doc_id, page_no; FK to documents)
+- containers (PK: container_id, metadata, timestamps)
+- chunks (PK: chunk_id; FK to containers; `text` + `text_fts` TSVECTOR with GIN index; `emb_v1` VECTOR(1536) with HNSW index)
+- pages (PK: container_id, page_no; FK to containers)
 
 Indexes:
 - GIN on `chunks.text_fts`
 - HNSW on `chunks.emb_v1` (`vector_cosine_ops`)
-- BTree on `(doc_id, page_no)` and `doc_id`
+- BTree on `(container_id, page_no)` and `container_id`
 
 FTS maintenance:
 - Trigger `trg_chunks_fts` computes:
@@ -101,8 +101,8 @@ Extensions (auto‑created by migration):
 
 Lexical (FTS):
 ```
-SELECT chunk_id, ts_rank_cd(text_fts, to_tsquery('simple', 'kyc:*')) AS score
-FROM chunks
+SELECT segment_id, ts_rank_cd(text_fts, to_tsquery('simple', 'kyc:*')) AS score
+FROM text_segments
 WHERE text_fts @@ to_tsquery('simple', 'kyc:*')
 ORDER BY score DESC
 LIMIT 50;
@@ -110,8 +110,8 @@ LIMIT 50;
 
 Vector (ANN):
 ```
-SELECT chunk_id, 1 - (emb_v1 <=> :q_emb) AS cosine_sim
-FROM chunks
+SELECT segment_id, 1 - (emb_v1 <=> :q_emb) AS cosine_sim
+FROM text_segments
 ORDER BY emb_v1 <=> :q_emb
 LIMIT 50;
 ```
