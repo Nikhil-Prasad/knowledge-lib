@@ -1,23 +1,24 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 
 from src.app.api.deps import get_db
-from src.app.services.ingest_service import ingest_text_segment
-from src.app.api.v1.ingest.schemas import IngestRequest, IngestResponse, RawTextSource
+from src.app.services.ingest import ingest as ingest_service
+from src.app.services.embeddings.embed_runner import embed_container_segments
+from src.app.api.v1.ingest.schemas import IngestRequest, IngestResponse
 
 
 router = APIRouter(prefix="/v1", tags=["v1"])
 
 
 @router.post("/ingest", response_model=IngestResponse)
-def ingest(req: IngestRequest, db: Session = Depends(get_db)) -> IngestResponse:
-    """Auto-routing ingest endpoint using unified request schema.
-
-    For now, only raw_text is implemented; other source types will be wired later.
-    """
-    src = req.source
-    if isinstance(src, RawTextSource):
-        return ingest_text_segment(db, src)
-    raise HTTPException(status_code=501, detail="Ingest source type not implemented yet")
+def ingest(req: IngestRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)) -> IngestResponse:
+    """Delegate ingest to the services router for resolve/identify/pipeline routing."""
+    try:
+        resp = ingest_service(db, req)
+        background_tasks.add_task(embed_container_segments, resp.container_id)
+        return resp
+    except NotImplementedError as e:
+        # Until router/pipelines are fully implemented, surface a 501 for unhandled cases
+        raise HTTPException(status_code=501, detail=str(e))

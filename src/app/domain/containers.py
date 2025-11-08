@@ -8,17 +8,8 @@ from pydantic import BaseModel, Field
 from .common import Modality, BBox
 
 
-class Asset(BaseModel):
-    asset_id: UUID
-    source_uri: str
-    mime_type: str
-    modality: Modality
-    bytes: Optional[int] = None
-
-
 class Document(BaseModel):
     container_id: UUID
-    asset_id: UUID
     title: Optional[str] = None
     language: Optional[str] = None
     is_scanned: bool = False
@@ -44,11 +35,10 @@ class TableSchemaCol(BaseModel):
 
 class TableSet(BaseModel):
     table_id: UUID
-    asset_id: UUID
     name: Optional[str] = None          # filename, caption, detected title
     n_rows: Optional[int] = None
     n_cols: Optional[int] = None
-    schema: List[TableSchemaCol] = Field(default_factory=list)
+    table_schema: List[TableSchemaCol] = Field(default_factory=list)
     page_no: Optional[Annotated[int, Field(ge=1)]] = None       # for tables extracted from containers
     bbox: Optional[BBox] = None         # same
     # created_at is DB-managed; omitted in domain

@@ -71,5 +71,4 @@ class BBox(BaseModel):
 
 class SegmentBase(BaseModel):
     segment_id: UUID
-    asset_id: UUID
     modality: Modality

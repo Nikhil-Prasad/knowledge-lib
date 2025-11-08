@@ -20,11 +20,13 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Load root .env so DATABASE_URL is available
+# Load root .env for local dev
 load_dotenv()
 
-# Prefer DATABASE_URL env; fallback to alembic.ini sqlalchemy.url
-DB_URL = os.getenv("DATABASE_URL", config.get_main_option("sqlalchemy.url"))
+# Use centralized settings for DB URL
+from src.app.settings import get_settings
+_settings = get_settings()
+DB_URL = _settings.sqlalchemy_url
 
 target_metadata = Base.metadata
 

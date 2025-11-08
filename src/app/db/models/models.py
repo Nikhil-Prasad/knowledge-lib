@@ -6,7 +6,7 @@ from typing import Optional, List
 
 from sqlalchemy import (
     String, Text, Integer, Boolean, TIMESTAMP, JSON, ForeignKey,
-    Index, text, Computed, Float, Enum as SAEnum
+    Index, text, Computed, Float, Enum as SAEnum, Table, Column
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID, BYTEA, TSVECTOR
@@ -33,6 +33,14 @@ class Container(Base):
 
     pages:  Mapped[List["Page"]]         = relationship(back_populates="container", cascade="all, delete-orphan")
     text_segments: Mapped[List["TextSegment"]] = relationship(back_populates="container", cascade="all, delete-orphan")
+    collections: Mapped[List["Collection"]] = relationship(
+        secondary=lambda: containers_collections,
+        back_populates="containers",
+    )
+
+    __table_args__ = (
+        Index("idx_containers_sha256", "sha256"),
+    )
 
 
 class Page(Base):
@@ -49,7 +57,12 @@ class Page(Base):
     height_px: Mapped[Optional[int]] = mapped_column(Integer)
 
     container: Mapped["Container"] = relationship(back_populates="pages")
-    text_segments:   Mapped[List["TextSegment"]] = relationship(back_populates="page", cascade="all, delete-orphan")
+    text_segments:   Mapped[List["TextSegment"]] = relationship(
+        back_populates="page",
+        primaryjoin="and_(Page.container_id==TextSegment.container_id, Page.page_no==TextSegment.page_no)",
+        foreign_keys="[TextSegment.container_id, TextSegment.page_no]",
+        viewonly=True,
+    )
 
 
 class TextSegment(Base):
@@ -87,6 +100,7 @@ class TextSegment(Base):
     page:     Mapped["Page"] = relationship(
         back_populates="text_segments",
         primaryjoin="and_(TextSegment.container_id==Page.container_id, TextSegment.page_no==Page.page_no)",
+        foreign_keys="[TextSegment.container_id, TextSegment.page_no]",
         viewonly=True,
     )
 
@@ -301,3 +315,29 @@ class LinkAnchor(Base):
     )
     atype:      Mapped[str] = mapped_column(String, primary_key=True)
     anchor:     Mapped[dict] = mapped_column(JSON, nullable=False)
+
+
+# ---------------- collections & association ---------------- #
+
+class Collection(Base):
+    __tablename__ = "collections"
+
+    collection_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name:        Mapped[Optional[str]] = mapped_column(Text)
+    description: Mapped[Optional[str]] = mapped_column(Text)
+    created_at:  Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), server_default=text("now()"), nullable=False)
+
+    containers: Mapped[List["Container"]] = relationship(
+        secondary=lambda: containers_collections,
+        back_populates="collections",
+    )
+
+
+containers_collections = Table(
+    "containers_collections",
+    Base.metadata,
+    Column("collection_id", UUID(as_uuid=True), ForeignKey("collections.collection_id", ondelete="CASCADE"), primary_key=True),
+    Column("container_id", UUID(as_uuid=True), ForeignKey("containers.container_id", ondelete="CASCADE"), primary_key=True),
+    Index("idx_containers_collections_collection", "collection_id"),
+    Index("idx_containers_collections_container", "container_id"),
+)
