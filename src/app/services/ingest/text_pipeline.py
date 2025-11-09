@@ -8,11 +8,12 @@ on-demand or via a background job.
 
 from typing import Iterable, Optional, List
 from uuid import UUID
-from sqlalchemy import func
+from sqlalchemy import func, select
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 import hashlib
 import re
 import unicodedata
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.api.v1.ingest.schemas import IngestOptions, IngestResponse
 from src.app.domain.common import TextSegmentType
@@ -20,8 +21,8 @@ from src.app.db.models.models import TextSegment, Container, Page
 from src.app.settings import get_settings
 
 
-def ingest_raw_text_pipeline(
-    session: Session,
+async def ingest_raw_text_pipeline(
+    session: AsyncSession,
     text: str,
     title_hint: Optional[str],
     source_uri: str,
@@ -50,8 +51,24 @@ def ingest_raw_text_pipeline(
         body_bytes = body.encode("utf-8")
         digest = hashlib.sha256(body_bytes).digest()
         if options.dedupe:
-            existing = session.query(Container).filter(Container.sha256 == digest).first()
+            result = await session.execute(select(Container).where(Container.sha256 == digest))
+            existing = result.scalar_one_or_none()
             if existing is not None:
+                # If a collection_id was provided, ensure the association exists even on dedupe
+                if collection_id is not None:
+                    from src.app.db.models.models import Collection, containers_collections
+                    coll = await session.get(Collection, collection_id)
+                    if coll is None:
+                        coll = Collection(collection_id=collection_id)
+                        session.add(coll)
+                        await session.flush()
+                    stmt = (
+                        pg_insert(containers_collections)
+                        .values(collection_id=collection_id, container_id=existing.container_id)
+                        .on_conflict_do_nothing(index_elements=["collection_id", "container_id"])
+                    )
+                    await session.execute(stmt)
+                    await session.commit()
                 return IngestResponse(
                     container_id=existing.container_id,
                     pages_created=0,
@@ -67,7 +84,7 @@ def ingest_raw_text_pipeline(
             title=title_final,
         )
         session.add(container)
-        session.flush()
+        await session.flush()
 
         page = Page(container_id=container.container_id, page_no=1, text=body)
         session.add(page)
@@ -77,7 +94,7 @@ def ingest_raw_text_pipeline(
 
         inserted: List[tuple[UUID, str]] = []
         if title and title.strip():
-            seg_id = ingest_text_segment(
+            seg_id = await ingest_text_segment(
                 session,
                 container_id=container.container_id,
                 page_no=1,
@@ -90,7 +107,7 @@ def ingest_raw_text_pipeline(
         settings = get_settings()
         short_thresh = settings.ingest_defaults.short_text_threshold_chars
         if len(body) < short_thresh:
-            seg_id = ingest_text_segment(
+            seg_id = await ingest_text_segment(
                 session,
                 container_id=container.container_id,
                 page_no=1,
@@ -107,7 +124,7 @@ def ingest_raw_text_pipeline(
             for w in windows:
                 if not w.strip():
                     continue
-                seg_id = ingest_text_segment(
+                seg_id = await ingest_text_segment(
                     session,
                     container_id=container.container_id,
                     page_no=1,
@@ -119,17 +136,23 @@ def ingest_raw_text_pipeline(
 
         # 5) Associate to collection if provided
         if collection_id is not None:
-            from src.app.db.models.models import Collection
-            coll = session.get(Collection, collection_id)
+            from src.app.db.models.models import Collection, containers_collections
+            coll = await session.get(Collection, collection_id)
             if coll is None:
                 coll = Collection(collection_id=collection_id)
                 session.add(coll)
-                session.flush()
-            container.collections.append(coll)
+                await session.flush()
+            # Avoid async lazy-load on container.collections by inserting association directly
+            stmt = (
+                pg_insert(containers_collections)
+                .values(collection_id=collection_id, container_id=container.container_id)
+                .on_conflict_do_nothing(index_elements=["collection_id", "container_id"])
+            )
+            await session.execute(stmt)
 
         # Embeddings are computed in a background task after commit.
 
-        session.commit()
+        await session.commit()
 
         return IngestResponse(
             container_id=container.container_id,
@@ -137,12 +160,12 @@ def ingest_raw_text_pipeline(
             segments_created=segments_created,
         )
     except Exception:
-        session.rollback()
+        await session.rollback()
         raise
 
 
-def ingest_text_segment(
-    session: Session,
+async def ingest_text_segment(
+    session: AsyncSession,
     *,
     container_id: UUID,
     page_no: int,
@@ -169,7 +192,7 @@ def ingest_text_segment(
     )
     session.add(seg)
     # Flush to obtain the generated segment_id without committing the transaction
-    session.flush()
+    await session.flush()
     return seg.segment_id
 
 

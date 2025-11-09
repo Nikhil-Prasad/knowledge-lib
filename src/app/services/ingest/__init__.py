@@ -7,13 +7,13 @@ to the appropriate pipeline (text vs container) after a resolve/identify
 phase. The API layer should import only this function.
 """
 
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.api.v1.ingest.schemas import IngestRequest, IngestResponse
 from . import orchestrator
 
 
-def ingest(session: Session, req: IngestRequest) -> IngestResponse:
+async def ingest(session: AsyncSession, req: IngestRequest) -> IngestResponse:
     """Route an `IngestRequest` to the appropriate pipeline.
 
     High level steps (implemented in `orchestrator.ingest`):
@@ -25,4 +25,4 @@ def ingest(session: Session, req: IngestRequest) -> IngestResponse:
 
     This function is a thin delegator to keep the route import stable.
     """
-    return orchestrator.ingest(session, req)
+    return await orchestrator.ingest(session, req)

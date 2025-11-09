@@ -11,7 +11,7 @@ Current scope: keep it simple and focus on text inputs (raw text, local files, r
 
 from __future__ import annotations
 
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional
 from pathlib import Path
 from urllib.parse import urlparse, unquote
@@ -65,7 +65,7 @@ def decode_bytes_to_text(data: bytes, charset_hint: Optional[str] = None) -> str
 
 # ---------------- Public entrypoint ---------------- #
 
-def ingest(session: Session, req: IngestRequest) -> IngestResponse:
+async def ingest(session: AsyncSession, req: IngestRequest) -> IngestResponse:
     """Entry point for the unified ingest flow (text-focused scaffold).
 
     Flow per source:
@@ -78,7 +78,7 @@ def ingest(session: Session, req: IngestRequest) -> IngestResponse:
     src = req.source
 
     if isinstance(src, RawTextSource):
-        return text_pipeline.ingest_raw_text_pipeline(
+        return await text_pipeline.ingest_raw_text_pipeline(
             session,
             text=src.text,
             title_hint=src.title,
@@ -109,7 +109,7 @@ def ingest(session: Session, req: IngestRequest) -> IngestResponse:
         data = path.read_bytes()
         text = decode_bytes_to_text(data)
 
-        return text_pipeline.ingest_raw_text_pipeline(
+        return await text_pipeline.ingest_raw_text_pipeline(
             session,
             text=text,
             title_hint=title_hint,

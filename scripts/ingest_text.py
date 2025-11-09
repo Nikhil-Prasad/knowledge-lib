@@ -16,18 +16,20 @@ def _bool_flag(parser: argparse.ArgumentParser, name: str, default: bool, help: 
     parser.set_defaults(**{name: default})
 
 
-def ingest_raw(api: str, text: str, title: str | None, dedupe: bool) -> dict:
+def ingest_raw(api: str, text: str, title: str | None, dedupe: bool, collection_id: str | None = None) -> dict:
     body = {
         "source": {"source_type": "raw_text", "text": text, "title": title},
         "options": {"dedupe": dedupe},
     }
+    if collection_id:
+        body["collection_id"] = collection_id
     with httpx.Client(timeout=60.0) as client:
         r = client.post(f"{api.rstrip('/')}/v1/ingest", json=body)
         r.raise_for_status()
         return r.json()
 
 
-def ingest_file(api: str, path: str, content_type_hint: str | None, dedupe: bool) -> dict:
+def ingest_file(api: str, path: str, content_type_hint: str | None, dedupe: bool, collection_id: str | None = None) -> dict:
     p = Path(path).expanduser().resolve()
     source = {
         "source_type": "upload_ref",
@@ -36,6 +38,8 @@ def ingest_file(api: str, path: str, content_type_hint: str | None, dedupe: bool
     if content_type_hint:
         source["content_type_hint"] = content_type_hint
     body = {"source": source, "options": {"dedupe": dedupe}}
+    if collection_id:
+        body["collection_id"] = collection_id
     with httpx.Client(timeout=120.0) as client:
         r = client.post(f"{api.rstrip('/')}/v1/ingest", json=body)
         r.raise_for_status()
@@ -66,30 +70,9 @@ def main() -> int:
         text = args.text
         if text is None:
             text = sys.stdin.read()
-        resp = ingest_raw(args.api, text=text, title=args.title, dedupe=args.dedupe)
-        if args.collection_id:
-            # Repost with collection_id (simple approach to keep helpers minimal)
-            body = {
-                "source": {"source_type": "raw_text", "text": text, "title": args.title},
-                "options": {"dedupe": args.dedupe},
-                "collection_id": args.collection_id,
-            }
-            with httpx.Client(timeout=60.0) as client:
-                r = client.post(f"{args.api.rstrip('/')}/v1/ingest", json=body)
-                r.raise_for_status()
-                resp = r.json()
+        resp = ingest_raw(args.api, text=text, title=args.title, dedupe=args.dedupe, collection_id=args.collection_id)
     elif args.cmd == "file":
-        resp = ingest_file(args.api, path=args.path, content_type_hint=args.content_type_hint, dedupe=args.dedupe)
-        if args.collection_id:
-            p = Path(args.path).expanduser().resolve()
-            source = {"source_type": "upload_ref", "upload_uri": f"file://{p}"}
-            if args.content_type_hint:
-                source["content_type_hint"] = args.content_type_hint
-            body = {"source": source, "options": {"dedupe": args.dedupe}, "collection_id": args.collection_id}
-            with httpx.Client(timeout=120.0) as client:
-                r = client.post(f"{args.api.rstrip('/')}/v1/ingest", json=body)
-                r.raise_for_status()
-                resp = r.json()
+        resp = ingest_file(args.api, path=args.path, content_type_hint=args.content_type_hint, dedupe=args.dedupe, collection_id=args.collection_id)
     else:
         parser.error("unknown command")
         return 2

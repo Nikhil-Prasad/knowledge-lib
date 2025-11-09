@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from functools import lru_cache
 from typing import Optional
 
@@ -93,6 +91,14 @@ class Settings(BaseSettings):
     ingest_embed_version: str = Field(
         default="v1",
         validation_alias=AliasChoices("INGEST_EMBED_VERSION", "ingest_embed_version"),
+    )
+    ingest_embed_batch_size: int = Field(
+        default=256,
+        validation_alias=AliasChoices("INGEST_EMBED_BATCH_SIZE", "ingest_embed_batch_size"),
+    )
+    ingest_embed_concurrency: int = Field(
+        default=2,
+        validation_alias=AliasChoices("INGEST_EMBED_CONCURRENCY", "ingest_embed_concurrency"),
     )
 
     # pydantic-settings configuration
