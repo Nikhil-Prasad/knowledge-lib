@@ -7,7 +7,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.app.db.session_async import AsyncSessionLocal
+from src.app.db.session.session_async import AsyncSessionLocal
 from src.app.db.models.models import TextSegment
 from src.app.settings import get_settings
 from src.app.services.embeddings.oai_embeddings import embed_many

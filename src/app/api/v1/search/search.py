@@ -2,44 +2,78 @@ from __future__ import annotations
 
 from typing import List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import text as sql_text
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.app.api.deps import get_db
-from src.app.api.v1.search.schemas import SearchRequest, SearchResponse, SearchHit
+from src.app.db.session.session_async import get_async_db
+from src.app.api.v1.search.schemas import (
+    SearchResponse,
+    SearchHit,
+    FtsSearchRequest,
+    AnnSearchRequest,
+    HybridSearchRequest,
+)
+from src.app.services.search.fts import fts_search
+from src.app.services.search.ann import ann_search
+from src.app.services.search.hybrid import hybrid_search
 
 
 router = APIRouter(prefix="/v1", tags=["v1"])
 
 
-@router.post("/search", response_model=SearchResponse)
-def search(req: SearchRequest, db: Session = Depends(get_db)) -> SearchResponse:
-    q = req.query.strip()
-    if not q:
-        return SearchResponse(results=[])
+@router.post("/search/fts", response_model=SearchResponse)
+async def search_fts(req: FtsSearchRequest, db: AsyncSession = Depends(get_async_db)) -> SearchResponse:
+    rows = await fts_search(db, query=req.query, k=req.k, collection_id=req.collection_id)
+    hits: List[SearchHit] = [
+        SearchHit(
+            modality=row.get("modality", "text"),
+            segment_id=row["segment_id"],
+            container_id=row["container_id"],
+            page_no=row.get("page_no"),
+            score=row.get("score", 0.0),
+            snippet=row.get("snippet"),
+        )
+        for row in rows
+    ]
+    return SearchResponse(results=hits)
 
-    sql = sql_text(
-        """
-        SELECT c.container_id, c.page_no, c.segment_id,
-               ts_rank_cd(c.text_fts, plainto_tsquery('simple', :q)) AS score,
-               left(c.text, 200) AS snippet
-        FROM text_segments c
-        WHERE c.text_fts @@ plainto_tsquery('simple', :q)
-        ORDER BY score DESC
-        LIMIT :k
-        """
-    )
-    rows = db.execute(sql, {"q": q, "k": req.k}).mappings().all()
+
+@router.post("/search/ann", response_model=SearchResponse)
+async def search_ann(req: AnnSearchRequest, db: AsyncSession = Depends(get_async_db)) -> SearchResponse:
+    try:
+        rows = await ann_search(db, query=req.query, k=req.k, collection_id=req.collection_id)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"ANN failed: {e}")
 
     hits: List[SearchHit] = [
         SearchHit(
-            modality="text",
+            modality=row.get("modality", "text"),
             segment_id=row["segment_id"],
             container_id=row["container_id"],
-            page_no=row["page_no"],
-            score=float(row["score"] or 0.0),
-            snippet=row["snippet"],
+            page_no=row.get("page_no"),
+            score=row.get("score", 0.0),
+            snippet=row.get("snippet"),
+        )
+        for row in rows
+    ]
+    return SearchResponse(results=hits)
+
+
+@router.post("/search/hybrid", response_model=SearchResponse)
+async def search_hybrid(req: HybridSearchRequest, db: AsyncSession = Depends(get_async_db)) -> SearchResponse:
+    try:
+        rows = await hybrid_search(db, query=req.query, k=req.k)
+    except NotImplementedError:
+        raise HTTPException(status_code=501, detail="Hybrid search not implemented yet")
+    hits: List[SearchHit] = [
+        SearchHit(
+            modality=row.get("modality", "text"),
+            segment_id=row["segment_id"],
+            container_id=row["container_id"],
+            page_no=row.get("page_no"),
+            score=row.get("score", 0.0),
+            snippet=row.get("snippet"),
         )
         for row in rows
     ]

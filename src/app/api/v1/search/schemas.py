@@ -8,6 +8,12 @@ from pydantic import BaseModel
 from src.app.domain.common import Modality
 
 
+class BaseSearchRequest(BaseModel):
+    query: str
+    k: int = 20
+    collection_id: Optional[UUID] = None
+
+
 class SearchRequest(BaseModel):
     query: str
     k: int = 20
@@ -24,3 +30,18 @@ class SearchHit(BaseModel):
 
 class SearchResponse(BaseModel):
     results: List[SearchHit]
+
+
+# Skeletonized request models for specific endpoints
+class FtsSearchRequest(BaseSearchRequest):
+    pass
+
+
+class AnnSearchRequest(BaseSearchRequest):
+    # Placeholder for ANN-specific params (e.g., vector model/version)
+    pass
+
+
+class HybridSearchRequest(BaseSearchRequest):
+    # Placeholder for hybrid-specific params (e.g., rrf_k, weights)
+    pass

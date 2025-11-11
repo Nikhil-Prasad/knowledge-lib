@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.app.db.session_async import get_async_db
+from src.app.db.session.session_async import get_async_db
 from src.app.services.ingest import ingest as ingest_service
 from src.app.services.embeddings.embed_runner_async import embed_container_segments_async
 from src.app.api.v1.ingest.schemas import IngestRequest, IngestResponse

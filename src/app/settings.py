@@ -30,6 +30,10 @@ class Settings(BaseSettings):
     database_url: Optional[str] = Field(
         default=None, validation_alias=AliasChoices("DATABASE_URL", "database_url")
     )
+    # Optional async SQLAlchemy URL for app runtime (e.g., postgresql+asyncpg://...)
+    async_database_url: Optional[str] = Field(
+        default=None, validation_alias=AliasChoices("ASYNC_DATABASE_URL", "async_database_url")
+    )
 
     # Discrete Postgres envs (helpful for tooling and DSN construction)
     pg_host: Optional[str] = Field(default=None, validation_alias=AliasChoices("PGHOST", "pg_host"))
@@ -125,6 +129,28 @@ class Settings(BaseSettings):
             )
         # Default local dev DSN (matches db/session default)
         return "postgresql+psycopg2://kl:klpass@localhost:5432/knowledge"
+
+    @property
+    def async_sqlalchemy_url(self) -> str:
+        """Effective async SQLAlchemy URL for app runtime.
+
+        Priority:
+        1) ASYNC_DATABASE_URL (if provided)
+        2) Derive from `sqlalchemy_url` by switching to asyncpg
+        """
+        if self.async_database_url:
+            return self.async_database_url
+        url = self.sqlalchemy_url
+        # Already async
+        if url.startswith("postgresql+asyncpg://"):
+            return url
+        # Transform common sync forms
+        if url.startswith("postgresql+psycopg2://"):
+            return url.replace("postgresql+psycopg2://", "postgresql+asyncpg://", 1)
+        if url.startswith("postgresql://"):
+            return url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        # Fallback (return as-is)
+        return url
 
     @property
     def ingest_defaults(self) -> IngestDefaults:
