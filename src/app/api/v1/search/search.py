@@ -62,10 +62,8 @@ async def search_ann(req: AnnSearchRequest, db: AsyncSession = Depends(get_async
 
 @router.post("/search/hybrid", response_model=SearchResponse)
 async def search_hybrid(req: HybridSearchRequest, db: AsyncSession = Depends(get_async_db)) -> SearchResponse:
-    try:
-        rows = await hybrid_search(db, query=req.query, k=req.k)
-    except NotImplementedError:
-        raise HTTPException(status_code=501, detail="Hybrid search not implemented yet")
+    # Defaults for hybrid leg candidate sizes and RRF parameter
+    rows = await hybrid_search(db, query=req.query, k=req.k, n_lex=200, n_sem=200, rrf_k=60, collection_id=req.collection_id)
     hits: List[SearchHit] = [
         SearchHit(
             modality=row.get("modality", "text"),

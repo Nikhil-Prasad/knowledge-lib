@@ -2,9 +2,30 @@ from __future__ import annotations
 
 from typing import List, Optional, Dict, Any
 from uuid import UUID
+import re
 
 from sqlalchemy import text as sql_text
 from sqlalchemy.ext.asyncio import AsyncSession
+
+
+def _build_or_prefix_tsquery(query: str, max_terms: int = 5) -> Optional[str]:
+    # Extract simple word tokens, drop very short ones, dedupe, and build OR with prefix
+    tokens = re.findall(r"[A-Za-z0-9_]+", query.lower())
+    tokens = [t for t in tokens if len(t) >= 4]
+    if not tokens:
+        return None
+    # Deduplicate preserving order
+    seen = set()
+    uniq: List[str] = []
+    for t in tokens:
+        if t not in seen:
+            seen.add(t)
+            uniq.append(t)
+    uniq = uniq[:max_terms]
+    if not uniq:
+        return None
+    # Add prefix wildcard
+    return " | ".join(f"{t}:*" for t in uniq)
 
 
 async def fts_search(
@@ -18,37 +39,93 @@ async def fts_search(
     if not q:
         return []
 
+    # Primary: flexible websearch query (Google-like)
     if collection_id is not None:
-        sql = sql_text(
+        sql_primary = sql_text(
             """
+            WITH tsq AS (
+              SELECT websearch_to_tsquery('pg_catalog.english', unaccent(:q)) AS q
+            )
             SELECT ts.container_id, ts.page_no, ts.segment_id,
-                   ts_rank_cd(to_tsvector('english', ts.text), plainto_tsquery('english', :q)) AS score,
+                   ts_rank_cd(ts.text_fts, (SELECT q FROM tsq)) AS score,
                    left(ts.text, 200) AS snippet
             FROM text_segments ts
             JOIN containers_collections cc ON cc.container_id = ts.container_id
             WHERE cc.collection_id = :collection_id
-              AND to_tsvector('english', ts.text) @@ plainto_tsquery('english', :q)
+              AND ts.text_fts @@ (SELECT q FROM tsq)
             ORDER BY score DESC
             LIMIT :k
             """
         )
         params = {"q": q, "k": k, "collection_id": collection_id}
     else:
-        sql = sql_text(
+        sql_primary = sql_text(
             """
+            WITH tsq AS (
+              SELECT websearch_to_tsquery('pg_catalog.english', unaccent(:q)) AS q
+            )
             SELECT ts.container_id, ts.page_no, ts.segment_id,
-                   ts_rank_cd(to_tsvector('english', ts.text), plainto_tsquery('english', :q)) AS score,
+                   ts_rank_cd(ts.text_fts, (SELECT q FROM tsq)) AS score,
                    left(ts.text, 200) AS snippet
             FROM text_segments ts
-            WHERE to_tsvector('english', ts.text) @@ plainto_tsquery('english', :q)
+            WHERE ts.text_fts @@ (SELECT q FROM tsq)
             ORDER BY score DESC
             LIMIT :k
             """
         )
         params = {"q": q, "k": k}
 
-    result = await db.execute(sql, params)
+    result = await db.execute(sql_primary, params)
     rows = result.mappings().all()
+    if rows:
+        return [
+            {
+                "modality": "text",
+                "segment_id": row["segment_id"],
+                "container_id": row["container_id"],
+                "page_no": row["page_no"],
+                "score": float(row["score"] or 0.0),
+                "snippet": row["snippet"],
+            }
+            for row in rows
+        ]
+
+    # Fallback: OR-of-top tokens with prefix matching
+    or_query = _build_or_prefix_tsquery(q)
+    if not or_query:
+        return []
+
+    if collection_id is not None:
+        sql_fallback = sql_text(
+            """
+            SELECT ts.container_id, ts.page_no, ts.segment_id,
+                   ts_rank_cd(ts.text_fts, to_tsquery('pg_catalog.english', :orq)) AS score,
+                   left(ts.text, 200) AS snippet
+            FROM text_segments ts
+            JOIN containers_collections cc ON cc.container_id = ts.container_id
+            WHERE cc.collection_id = :collection_id
+              AND ts.text_fts @@ to_tsquery('pg_catalog.english', :orq)
+            ORDER BY score DESC
+            LIMIT :k
+            """
+        )
+        params_fb = {"orq": or_query, "k": k, "collection_id": collection_id}
+    else:
+        sql_fallback = sql_text(
+            """
+            SELECT ts.container_id, ts.page_no, ts.segment_id,
+                   ts_rank_cd(ts.text_fts, to_tsquery('pg_catalog.english', :orq)) AS score,
+                   left(ts.text, 200) AS snippet
+            FROM text_segments ts
+            WHERE ts.text_fts @@ to_tsquery('pg_catalog.english', :orq)
+            ORDER BY score DESC
+            LIMIT :k
+            """
+        )
+        params_fb = {"orq": or_query, "k": k}
+
+    result_fb = await db.execute(sql_fallback, params_fb)
+    rows_fb = result_fb.mappings().all()
     return [
         {
             "modality": "text",
@@ -58,6 +135,5 @@ async def fts_search(
             "score": float(row["score"] or 0.0),
             "snippet": row["snippet"],
         }
-        for row in rows
+        for row in rows_fb
     ]
-

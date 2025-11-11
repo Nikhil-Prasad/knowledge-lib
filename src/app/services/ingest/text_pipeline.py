@@ -188,7 +188,6 @@ async def ingest_text_segment(
         section_path=section_path,
         bbox=bbox,
         text=text,
-        text_fts=func.to_tsvector('simple', text),
     )
     session.add(seg)
     # Flush to obtain the generated segment_id without committing the transaction

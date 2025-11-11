@@ -3,11 +3,12 @@ from __future__ import annotations
 from typing import List, Optional, Dict, Any
 from uuid import UUID
 
-from sqlalchemy import text as sql_text
+from sqlalchemy import text as sql_text, bindparam
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.services.embeddings.oai_embeddings import embed_one
 from src.app.settings import get_settings
+from pgvector.sqlalchemy import Vector
 
 
 async def ann_search(
@@ -36,7 +37,7 @@ async def ann_search(
             ORDER BY ts.emb_v1 <=> :qvec
             LIMIT :k
             """
-        )
+        ).bindparams(bindparam("qvec", type_=Vector(1536)))
         params = {"qvec": qvec, "k": k, "collection_id": collection_id}
     else:
         sql = sql_text(
@@ -49,7 +50,7 @@ async def ann_search(
             ORDER BY ts.emb_v1 <=> :qvec
             LIMIT :k
             """
-        )
+        ).bindparams(bindparam("qvec", type_=Vector(1536)))
         params = {"qvec": qvec, "k": k}
 
     result = await db.execute(sql, params)
@@ -65,4 +66,3 @@ async def ann_search(
         }
         for row in rows
     ]
-
