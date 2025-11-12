@@ -8,10 +8,10 @@ from sqlalchemy import text as sql_text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-def _build_or_prefix_tsquery(query: str, max_terms: int = 5) -> Optional[str]:
-    # Extract simple word tokens, drop very short ones, dedupe, and build OR with prefix
+def _build_or_prefix_tsquery(query: str, max_terms: int = 3) -> Optional[str]:
+    # Extract simple word tokens, drop very short and numeric-only ones, dedupe, and build OR with prefix
     tokens = re.findall(r"[A-Za-z0-9_]+", query.lower())
-    tokens = [t for t in tokens if len(t) >= 4]
+    tokens = [t for t in tokens if len(t) >= 5 and not t.isdigit()]
     if not tokens:
         return None
     # Deduplicate preserving order
@@ -105,11 +105,12 @@ async def fts_search(
             JOIN containers_collections cc ON cc.container_id = ts.container_id
             WHERE cc.collection_id = :collection_id
               AND ts.text_fts @@ to_tsquery('pg_catalog.english', :orq)
+              AND ts_rank_cd(ts.text_fts, to_tsquery('pg_catalog.english', :orq)) >= :min_score
             ORDER BY score DESC
             LIMIT :k
             """
         )
-        params_fb = {"orq": or_query, "k": k, "collection_id": collection_id}
+        params_fb = {"orq": or_query, "k": k, "collection_id": collection_id, "min_score": 0.10}
     else:
         sql_fallback = sql_text(
             """
@@ -118,11 +119,12 @@ async def fts_search(
                    left(ts.text, 200) AS snippet
             FROM text_segments ts
             WHERE ts.text_fts @@ to_tsquery('pg_catalog.english', :orq)
+              AND ts_rank_cd(ts.text_fts, to_tsquery('pg_catalog.english', :orq)) >= :min_score
             ORDER BY score DESC
             LIMIT :k
             """
         )
-        params_fb = {"orq": or_query, "k": k}
+        params_fb = {"orq": or_query, "k": k, "min_score": 0.10}
 
     result_fb = await db.execute(sql_fallback, params_fb)
     rows_fb = result_fb.mappings().all()

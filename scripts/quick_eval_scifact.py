@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+from datetime import datetime
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 import re
 
@@ -22,7 +23,7 @@ API_BASE = "http://127.0.0.1:8000"
 DB_URL = "postgresql+psycopg2://kl:klpass@localhost:5432/knowledge"
 
 # Eval params
-N_QUERIES = 10         # how many queries to test
+N_QUERIES: Optional[int] = None   # how many queries to test; None = all
 TOP_K = 10             # top-k per method
 MODE = "both"         # one of: "fts", "ann", "both", "hybrid"
 INCLUDE_HYBRID = True  # also call the hybrid endpoint and print results
@@ -37,6 +38,9 @@ EXPECTED_FIELD: Optional[str] = None
 # Optional: BEIR qrels path (TSV with columns: qid\t0\tdoc_id\trel). If set, we match expected doc_ids via title→container map
 QRELS_PATH: Optional[str] = \
     "/Users/nikhilprasad/crown/knowledge-lib/evals/datasets/beir/eval/scifact/qrels/test.tsv"
+
+# Output report (Markdown). If None, skip file creation
+REPORT_PATH: Optional[str] = "reports/scifact_eval.md"
 
 
 def load_jsonl(path: Path, limit: Optional[int] = None) -> List[Dict[str, Any]]:
@@ -187,11 +191,14 @@ def main() -> int:
 
     qrels = load_qrels(QRELS_PATH)
 
-    # Aggregates for HIT@k summary
+    # Aggregates for metrics
     total_eval = 0
-    hits_fts = 0
-    hits_ann = 0
-    hits_hyb = 0
+    methods = [m for m in ["FTS", "ANN", "HYBRID"] if (m != "HYBRID" or INCLUDE_HYBRID or MODE == "hybrid")] 
+    hits = {m: 0 for m in methods}
+    mrr = {m: 0.0 for m in methods}
+    recall_sum = {m: 0.0 for m in methods}
+
+    per_query_rows = []  # collect lightweight per-query results for the report
 
     for idx, obj in enumerate(items, start=1):
         qid, qtext = extract_query(obj)
@@ -274,13 +281,13 @@ def main() -> int:
                 # Still print HYBRID if INCLUDE_HYBRID is True
                 if not (method == "HYBRID" and INCLUDE_HYBRID):
                     continue
-            hits = by_method[method]
-            if not hits:
+            hits_list = by_method[method]
+            if not hits_list:
                 print(f"  {method}: (no results)")
                 continue
             hit_pos: Optional[int] = None
             if exp_cids:
-                for i, h in enumerate(hits, start=1):
+                for i, h in enumerate(hits_list, start=1):
                     if str(h.get("container_id")) in exp_cids:
                         hit_pos = i
                         break
@@ -288,7 +295,7 @@ def main() -> int:
             if hit_pos is not None:
                 prefix += f" HIT@{hit_pos}"
             print(prefix)
-            for rank, h in enumerate(hits, start=1):
+            for rank, h in enumerate(hits_list, start=1):
                 cid = h["container_id"]
                 title = title_map.get(str(cid)) if title_map else None
                 score = h.get("score")
@@ -303,24 +310,80 @@ def main() -> int:
         # Update aggregates if we had any expected cids for this query
         if exp_cids:
             total_eval += 1
-            if by_method["FTS"]:
-                if any(str(h.get("container_id")) in exp_cids for h in by_method["FTS"][:TOP_K]):
-                    hits_fts += 1
-            if by_method["ANN"]:
-                if any(str(h.get("container_id")) in exp_cids for h in by_method["ANN"][:TOP_K]):
-                    hits_ann += 1
-            if by_method["HYBRID"]:
-                if any(str(h.get("container_id")) in exp_cids for h in by_method["HYBRID"][:TOP_K]):
-                    hits_hyb += 1
+            exp_set = set(exp_cids)
+            # Gather a compact per-query row for the report
+            row_for_report = {"qid": qid, "query": qtext, "expected": exp_cids}
+            for method in methods:
+                method_hits = by_method.get(method, [])
+                topk = method_hits[:TOP_K]
+                topk_containers = [str(h.get("container_id")) for h in topk]
+                # Hit@k
+                found = None
+                for i, cid in enumerate(topk_containers, start=1):
+                    if cid in exp_set:
+                        found = i
+                        break
+                if found is not None:
+                    hits[method] += 1
+                    mrr[method] += 1.0 / found
+                # Recall@k based on doc-level presence
+                recall = 0.0
+                if exp_set:
+                    present = len(exp_set.intersection(set(topk_containers)))
+                    recall = present / len(exp_set)
+                    recall_sum[method] += recall
+                # Save rank summary for report
+                row_for_report[f"{method}_rank"] = found
+                row_for_report[f"{method}_recall"] = recall
+            per_query_rows.append(row_for_report)
 
         print()
 
     if total_eval:
-        print("Summary (HIT@k):")
+        print("Summary (HIT@k / MRR@k / Recall@k):")
         print(f"  evaluated: {total_eval}")
-        print(f"  FTS:    {hits_fts}/{total_eval}  ({(hits_fts/total_eval)*100:.1f}%)")
-        print(f"  ANN:    {hits_ann}/{total_eval}  ({(hits_ann/total_eval)*100:.1f}%)")
-        print(f"  HYBRID: {hits_hyb}/{total_eval}  ({(hits_hyb/total_eval)*100:.1f}%)")
+        for method in methods:
+            hit_rate = (hits[method] / total_eval) * 100.0
+            mrr_avg = (mrr[method] / total_eval)
+            recall_avg = (recall_sum[method] / total_eval)
+            print(f"  {method:<6} HIT@{TOP_K}: {hits[method]}/{total_eval} ({hit_rate:.1f}%)  MRR@{TOP_K}: {mrr_avg:.3f}  Recall@{TOP_K}: {recall_avg:.3f}")
+
+    # Write Markdown report if configured
+    if REPORT_PATH and total_eval:
+        report_path = Path(REPORT_PATH)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        ts = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        lines: List[str] = []
+        lines.append(f"# SciFact Retrieval Evaluation\n")
+        lines.append(f"Generated: {ts}\n\n")
+        lines.append(f"- Queries: `{QUERIES_PATH}`\n")
+        lines.append(f"- Qrels: `{QRELS_PATH}`\n")
+        lines.append(f"- Collection: `{COLLECTION_ID or 'ALL'}`\n")
+        lines.append(f"- K: `{TOP_K}`  •  Total evaluated: `{total_eval}`\n\n")
+        # Metrics table
+        lines.append("## Summary\n")
+        lines.append("Method | HIT@k | MRR@k | Recall@k\n")
+        lines.append("--- | ---: | ---: | ---:\n")
+        for method in methods:
+            hit_rate = (hits[method] / total_eval) * 100.0
+            mrr_avg = (mrr[method] / total_eval)
+            recall_avg = (recall_sum[method] / total_eval)
+            lines.append(f"{method} | {hit_rate:.1f}% | {mrr_avg:.3f} | {recall_avg:.3f}\n")
+        lines.append("\n")
+        # Sample details (first 10 queries)
+        lines.append("## Sample Queries (first 10)\n")
+        for row in per_query_rows[:10]:
+            lines.append(f"- QID `{row.get('qid')}`: {row.get('query')}\n")
+            lines.append(f"  - expected: {row.get('expected')}\n")
+            for method in methods:
+                r = row.get(f"{method}_rank")
+                rec = row.get(f"{method}_recall")
+                if r is not None:
+                    lines.append(f"  - {method}: rank={r}, recall@{TOP_K}={rec:.2f}\n")
+                else:
+                    lines.append(f"  - {method}: no hit in top-{TOP_K}, recall@{TOP_K}={rec:.2f}\n")
+        report_path.write_text("".join(lines), encoding="utf-8")
+        print(f"\nWrote report: {report_path}")
 
     return 0
 
