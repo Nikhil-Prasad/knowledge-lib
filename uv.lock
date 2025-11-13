@@ -1252,6 +1252,7 @@ dependencies = [
     { name = "pydantic-settings" },
     { name = "python-dotenv" },
     { name = "python-multipart" },
+    { name = "sentence-transformers" },
     { name = "sqlalchemy" },
     { name = "uvicorn", extra = ["standard"] },
 ]
@@ -1309,6 +1310,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.0" },
     { name = "python-multipart", specifier = ">=0.0.9" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.5" },
+    { name = "sentence-transformers", specifier = ">=5.1.2" },
     { name = "sentence-transformers", marker = "extra == 'reranker'", specifier = ">=3.0.1" },
     { name = "sqlalchemy", specifier = ">=2.0" },
     { name = "torch", marker = "(platform_machine != 'arm64' and extra == 'reranker') or (sys_platform != 'darwin' and extra == 'reranker')", specifier = ">=2.3" },

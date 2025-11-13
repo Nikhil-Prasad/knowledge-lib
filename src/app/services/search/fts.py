@@ -48,7 +48,8 @@ async def fts_search(
             )
             SELECT ts.container_id, ts.page_no, ts.segment_id,
                    ts_rank_cd(ts.text_fts, (SELECT q FROM tsq)) AS score,
-                   left(ts.text, 200) AS snippet
+                   left(ts.text, 200) AS snippet,
+                   left(ts.text, 1500) AS text
             FROM text_segments ts
             JOIN containers_collections cc ON cc.container_id = ts.container_id
             WHERE cc.collection_id = :collection_id
@@ -66,7 +67,8 @@ async def fts_search(
             )
             SELECT ts.container_id, ts.page_no, ts.segment_id,
                    ts_rank_cd(ts.text_fts, (SELECT q FROM tsq)) AS score,
-                   left(ts.text, 200) AS snippet
+                   left(ts.text, 200) AS snippet,
+                   left(ts.text, 1500) AS text
             FROM text_segments ts
             WHERE ts.text_fts @@ (SELECT q FROM tsq)
             ORDER BY score DESC
@@ -100,7 +102,8 @@ async def fts_search(
             """
             SELECT ts.container_id, ts.page_no, ts.segment_id,
                    ts_rank_cd(ts.text_fts, to_tsquery('pg_catalog.english', :orq)) AS score,
-                   left(ts.text, 200) AS snippet
+                   left(ts.text, 200) AS snippet,
+                   left(ts.text, 1500) AS text
             FROM text_segments ts
             JOIN containers_collections cc ON cc.container_id = ts.container_id
             WHERE cc.collection_id = :collection_id
@@ -116,7 +119,8 @@ async def fts_search(
             """
             SELECT ts.container_id, ts.page_no, ts.segment_id,
                    ts_rank_cd(ts.text_fts, to_tsquery('pg_catalog.english', :orq)) AS score,
-                   left(ts.text, 200) AS snippet
+                   left(ts.text, 200) AS snippet,
+                   left(ts.text, 1500) AS text
             FROM text_segments ts
             WHERE ts.text_fts @@ to_tsquery('pg_catalog.english', :orq)
               AND ts_rank_cd(ts.text_fts, to_tsquery('pg_catalog.english', :orq)) >= :min_score

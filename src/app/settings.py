@@ -105,6 +105,50 @@ class Settings(BaseSettings):
         validation_alias=AliasChoices("INGEST_EMBED_CONCURRENCY", "ingest_embed_concurrency"),
     )
 
+    # Reranker configuration (scaffold)
+    rerank_enabled: bool = Field(
+        default=False,
+        validation_alias=AliasChoices("RERANK_ENABLED", "rerank_enabled"),
+    )
+    rerank_model: str = Field(
+        default="BAAI/bge-reranker-base",
+        validation_alias=AliasChoices("RERANK_MODEL", "rerank_model"),
+    )
+    rerank_max_length: int = Field(
+        default=384,
+        validation_alias=AliasChoices("RERANK_MAX_LENGTH", "rerank_max_length"),
+    )
+    rerank_batch_size: int = Field(
+        default=32,
+        validation_alias=AliasChoices("RERANK_BATCH_SIZE", "rerank_batch_size"),
+    )
+    rerank_device: str = Field(
+        default="cpu",
+        validation_alias=AliasChoices("RERANK_DEVICE", "rerank_device"),
+    )
+
+    # Hybrid search tunables
+    hybrid_n_sem: int = Field(
+        default=400,
+        validation_alias=AliasChoices("HYBRID_N_SEM", "hybrid_n_sem"),
+    )
+    hybrid_n_lex: int = Field(
+        default=200,
+        validation_alias=AliasChoices("HYBRID_N_LEX", "hybrid_n_lex"),
+    )
+    hybrid_rerank_pool: int = Field(
+        default=256,
+        validation_alias=AliasChoices("HYBRID_RERANK_POOL", "hybrid_rerank_pool"),
+    )
+    hybrid_ann_ef_search: int = Field(
+        default=96,
+        validation_alias=AliasChoices("HYBRID_ANN_EF_SEARCH", "hybrid_ann_ef_search"),
+    )
+    hybrid_per_container_limit: int = Field(
+        default=1,
+        validation_alias=AliasChoices("HYBRID_PER_CONTAINER_LIMIT", "hybrid_per_container_limit"),
+    )
+
     # pydantic-settings configuration
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", case_sensitive=False, extra="ignore"

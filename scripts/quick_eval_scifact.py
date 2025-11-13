@@ -24,7 +24,7 @@ DB_URL = "postgresql+psycopg2://kl:klpass@localhost:5432/knowledge"
 
 # Eval params
 N_QUERIES: Optional[int] = None   # how many queries to test; None = all
-TOP_K = 10             # top-k per method
+TOP_K = 20             # top-k per method
 MODE = "both"         # one of: "fts", "ann", "both", "hybrid"
 INCLUDE_HYBRID = True  # also call the hybrid endpoint and print results
 PRINT_SNIPPET = True   # whether to print snippet text
@@ -39,8 +39,8 @@ EXPECTED_FIELD: Optional[str] = None
 QRELS_PATH: Optional[str] = \
     "/Users/nikhilprasad/crown/knowledge-lib/evals/datasets/beir/eval/scifact/qrels/test.tsv"
 
-# Output report (Markdown). If None, skip file creation
-REPORT_PATH: Optional[str] = "reports/scifact_eval.md"
+# Output report directory (Markdown reports are timestamped). If None, skip file creation
+REPORT_DIR: Optional[str] = "reports"
 
 
 def load_jsonl(path: Path, limit: Optional[int] = None) -> List[Dict[str, Any]]:
@@ -197,6 +197,12 @@ def main() -> int:
     hits = {m: 0 for m in methods}
     mrr = {m: 0.0 for m in methods}
     recall_sum = {m: 0.0 for m in methods}
+    # Candidate-stage recall evaluation (pre-rerank pools)
+    CAND_EVAL = True
+    CAND_FTS_N = 200
+    CAND_ANN_N = 400
+    cand_recall_sum = {"FTS": 0.0, "ANN": 0.0}
+    cand_eval_count = 0
 
     per_query_rows = []  # collect lightweight per-query results for the report
 
@@ -316,7 +322,9 @@ def main() -> int:
             for method in methods:
                 method_hits = by_method.get(method, [])
                 topk = method_hits[:TOP_K]
+                # dedupe containers for stats to avoid counting multiple segments per doc
                 topk_containers = [str(h.get("container_id")) for h in topk]
+                topk_set = set(topk_containers)
                 # Hit@k
                 found = None
                 for i, cid in enumerate(topk_containers, start=1):
@@ -329,7 +337,7 @@ def main() -> int:
                 # Recall@k based on doc-level presence
                 recall = 0.0
                 if exp_set:
-                    present = len(exp_set.intersection(set(topk_containers)))
+                    present = len(exp_set.intersection(topk_set))
                     recall = present / len(exp_set)
                     recall_sum[method] += recall
                 # Save rank summary for report
@@ -339,6 +347,42 @@ def main() -> int:
 
         print()
 
+    # Candidate-stage recall: issue broader FTS/ANN queries per item (optional)
+    if CAND_EVAL:
+        # Reload items to avoid duplicating network calls earlier
+        # We recompute candidate recall using the same iteration
+        cand_recall_sum = {"FTS": 0.0, "ANN": 0.0}
+        cand_eval_count = 0
+        for obj in items:
+            qid, qtext = extract_query(obj)
+            if not qtext:
+                continue
+            # expected set
+            exp_cids: List[str] = []
+            if qid and qid in qrels:
+                for doc_id in qrels[qid]:
+                    cid = title_to_cid.get(doc_id) or title_to_cid.get(_norm_title(doc_id))
+                    if cid:
+                        exp_cids.append(cid)
+            exp_set = set(exp_cids)
+            if not exp_set:
+                continue
+            body_cand_fts = {"query": qtext, "k": CAND_FTS_N}
+            body_cand_ann = {"query": qtext, "k": CAND_ANN_N}
+            if COLLECTION_ID:
+                body_cand_fts["collection_id"] = COLLECTION_ID
+                body_cand_ann["collection_id"] = COLLECTION_ID
+            try:
+                fts_cand_hits = request_search(API_BASE, "/v1/search/fts", body_cand_fts)
+                ann_cand_hits = request_search(API_BASE, "/v1/search/ann", body_cand_ann)
+            except Exception:
+                continue
+            fts_set = set(str(h.get("container_id")) for h in fts_cand_hits)
+            ann_set = set(str(h.get("container_id")) for h in ann_cand_hits)
+            cand_recall_sum["FTS"] += (len(exp_set.intersection(fts_set)) / len(exp_set))
+            cand_recall_sum["ANN"] += (len(exp_set.intersection(ann_set)) / len(exp_set))
+            cand_eval_count += 1
+
     if total_eval:
         print("Summary (HIT@k / MRR@k / Recall@k):")
         print(f"  evaluated: {total_eval}")
@@ -347,12 +391,19 @@ def main() -> int:
             mrr_avg = (mrr[method] / total_eval)
             recall_avg = (recall_sum[method] / total_eval)
             print(f"  {method:<6} HIT@{TOP_K}: {hits[method]}/{total_eval} ({hit_rate:.1f}%)  MRR@{TOP_K}: {mrr_avg:.3f}  Recall@{TOP_K}: {recall_avg:.3f}")
+        # Candidate-stage recall
+        if cand_eval_count:
+            print("\nCandidate-stage recall:")
+            print(f"  FTS@{CAND_FTS_N}: {cand_recall_sum['FTS']/cand_eval_count:.3f}")
+            print(f"  ANN@{CAND_ANN_N}: {cand_recall_sum['ANN']/cand_eval_count:.3f}")
 
     # Write Markdown report if configured
-    if REPORT_PATH and total_eval:
-        report_path = Path(REPORT_PATH)
-        report_path.parent.mkdir(parents=True, exist_ok=True)
+    if REPORT_DIR and total_eval:
+        ts_file = datetime.now().strftime('%Y%m%d_%H%M%S')
         ts = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        report_dir = Path(REPORT_DIR)
+        report_dir.mkdir(parents=True, exist_ok=True)
+        report_path = report_dir / f"scifact_eval_{ts_file}.md"
         lines: List[str] = []
         lines.append(f"# SciFact Retrieval Evaluation\n")
         lines.append(f"Generated: {ts}\n\n")
@@ -370,6 +421,11 @@ def main() -> int:
             recall_avg = (recall_sum[method] / total_eval)
             lines.append(f"{method} | {hit_rate:.1f}% | {mrr_avg:.3f} | {recall_avg:.3f}\n")
         lines.append("\n")
+        # Candidate-stage recall section
+        if cand_eval_count:
+            lines.append("## Candidate-stage Recall\n")
+            lines.append(f"FTS@{CAND_FTS_N}: {cand_recall_sum['FTS']/cand_eval_count:.3f}  ")
+            lines.append(f"ANN@{CAND_ANN_N}: {cand_recall_sum['ANN']/cand_eval_count:.3f}\n\n")
         # Sample details (first 10 queries)
         lines.append("## Sample Queries (first 10)\n")
         for row in per_query_rows[:10]:

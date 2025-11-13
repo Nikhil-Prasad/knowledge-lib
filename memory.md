@@ -118,14 +118,41 @@ This file captures the key decisions, nomenclature, schema shape, and service la
   - Links/graph traversal (no links created in text pipeline—by design).
   - Hybrid search endpoint (RRF/weighted blend) and snippet highlighting.
 
-### Next Session – Search Plan
-- Add a `/v1/search/hybrid` endpoint:
-  - Input: query, k, optional `collection_id`.
-  - Run FTS (+ rank_cd) and ANN (+ distance) queries separately, scope to collection when provided.
-  - Fuse with Reciprocal Rank Fusion (or simple weighted blend), return unified hits.
-  - Optionally use `ts_headline` for snippets on FTS hits.
-- Ensure ANN query filters `emb_v1 IS NOT NULL` so results appear as embeddings complete.
-- Add a lightweight “embedding status” endpoint for a container/collection (counts of `emb_v1 IS NULL` vs total).
+### Search v1→v2 – Implemented Work
+- FTS config swap to english without re‑ingest:
+  - Added a concurrent GIN expression index on `to_tsvector('english', text)`; switched queries to use english via that index.
+  - Migrated to a stored english TSVECTOR column and updated the FTS trigger to compute `to_tsvector('pg_catalog.english', unaccent(text))`.
+  - FTS endpoint now uses `websearch_to_tsquery('pg_catalog.english', unaccent(:q))` with `ts_rank_cd`; guarded fallback constructs a small OR‑of‑prefix query with a minimum score to avoid “no results”.
+- Async endpoints:
+  - `/v1/search/fts` and `/v1/search/ann` implemented with `AsyncSession` and collection scoping.
+  - `/v1/search/hybrid` implemented: runs FTS + ANN, fuses via RRF, optional reranker, returns unified hits.
+- ANN improvements:
+  - Query embedding via OpenAI (1536‑d). Proper vector binding for pgvector.
+  - Optional `hnsw.ef_search` per request/session (uses `SET LOCAL hnsw.ef_search = <int>`; safe fallback if unavailable).
+  - Returned a longer `text` field (up to ~1500 chars) for better reranker inputs.
+- Hybrid search tunables (settings):
+  - `HYBRID_N_SEM` (default 400), `HYBRID_N_LEX` (default 200), `HYBRID_RERANK_POOL` (default 256).
+  - `HYBRID_ANN_EF_SEARCH` (default 96), `HYBRID_PER_CONTAINER_LIMIT` (diversity; 0 disables).
+  - Reranker flags: `RERANK_ENABLED`, `RERANK_MODEL`, `RERANK_DEVICE` (MPS/CPU/CUDA), `RERANK_BATCH_SIZE`, `RERANK_MAX_LENGTH`.
+- Reranker (BGE) scaffold and enablement:
+  - `services/rerank/bge_reranker.py` with lazy import of `sentence-transformers` CrossEncoder.
+  - `build_rerank_text` helper composes input from title/section/snippet (optionally longer text).
+  - `/v1/search/hybrid` passes `use_reranker=settings.rerank_enabled`; reranks fused top‑M on a background thread; graceful fallback if not installed.
+  - Warm cache script run to pre‑download `BAAI/bge-reranker-base` on MPS.
+- Eval tooling:
+  - `scripts/quick_eval_scifact.py` runs FTS/ANN/HYBRID against BEIR SciFact, uses qrels/test.tsv, and looks up container IDs via title segments.
+  - Computes Hit@k, MRR@k, Recall@k (doc‑level), now also aggregates a doc‑level confusion matrix (TP/FP/FN + precision/recall/F1).
+  - Generates a timestamped Markdown report in `reports/` with summary metrics and sample queries.
+- Tuning changes that improved performance:
+  - Larger ANN pool and rerank pool; optional `ef_search` for better recall.
+  - Switched to k=20 for higher recall; kept agent‑friendly diversity.
+  - Disabled pre‑rerank container dedup (HYBRID_PER_CONTAINER_LIMIT=0) for SciFact so the reranker can select the best passage per document.
+
+### Open Items / Future Improvements
+- Weighted RRF (favor ANN w.r.t. FTS) to reduce fusion noise.
+- Optional union‑then‑rerank strategy (e.g., ANN@100 ∪ FTS@50) for latency‑sensitive paths.
+- Move dedup to post‑rerank to keep final results diverse while allowing the reranker to see all passages per doc.
+- Add title joins directly in FTS/ANN SELECTs for stronger rerank inputs.
 
 ## Decisions & Renames (summary)
 - `documents → containers`, `doc_id → container_id` everywhere.

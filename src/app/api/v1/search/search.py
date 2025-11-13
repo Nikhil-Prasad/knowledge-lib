@@ -17,6 +17,7 @@ from src.app.api.v1.search.schemas import (
 from src.app.services.search.fts import fts_search
 from src.app.services.search.ann import ann_search
 from src.app.services.search.hybrid import hybrid_search
+from src.app.settings import get_settings
 
 
 router = APIRouter(prefix="/v1", tags=["v1"])
@@ -63,7 +64,20 @@ async def search_ann(req: AnnSearchRequest, db: AsyncSession = Depends(get_async
 @router.post("/search/hybrid", response_model=SearchResponse)
 async def search_hybrid(req: HybridSearchRequest, db: AsyncSession = Depends(get_async_db)) -> SearchResponse:
     # Defaults for hybrid leg candidate sizes and RRF parameter
-    rows = await hybrid_search(db, query=req.query, k=req.k, n_lex=200, n_sem=200, rrf_k=60, collection_id=req.collection_id)
+    settings = get_settings()
+    rows = await hybrid_search(
+        db,
+        query=req.query,
+        k=req.k,
+        n_lex=settings.hybrid_n_lex,
+        n_sem=settings.hybrid_n_sem,
+        rrf_k=60,
+        collection_id=req.collection_id,
+        use_reranker=getattr(settings, "rerank_enabled", False),
+        rerank_pool=settings.hybrid_rerank_pool,
+        per_container_limit=settings.hybrid_per_container_limit,
+        ann_ef_search=settings.hybrid_ann_ef_search,
+    )
     hits: List[SearchHit] = [
         SearchHit(
             modality=row.get("modality", "text"),
