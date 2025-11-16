@@ -7,6 +7,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 import re
+import time
 
 import httpx
 from sqlalchemy import create_engine, text as sql_text
@@ -197,6 +198,11 @@ def main() -> int:
     hits = {m: 0 for m in methods}
     mrr = {m: 0.0 for m in methods}
     recall_sum = {m: 0.0 for m in methods}
+    precision_sum = {m: 0.0 for m in methods}
+    ndcg_sum = {m: 0.0 for m in methods}
+    map_sum = {m: 0.0 for m in methods}
+    lat_sum = {m: 0.0 for m in methods}
+    lat_cnt = {m: 0 for m in methods}
     # Candidate-stage recall evaluation (pre-rerank pools)
     CAND_EVAL = True
     CAND_FTS_N = 200
@@ -247,7 +253,10 @@ def main() -> int:
 
         if MODE in ("fts", "both"):
             try:
+                t0 = time.time()
                 fts_hits = request_search(API_BASE, "/v1/search/fts", body)
+                lat_sum["FTS"] += (time.time() - t0)
+                lat_cnt["FTS"] += 1
             except Exception as e:
                 print(f"  FTS error: {e}")
                 fts_hits = []
@@ -256,7 +265,10 @@ def main() -> int:
 
         if MODE in ("ann", "both"):
             try:
+                t0 = time.time()
                 ann_hits = request_search(API_BASE, "/v1/search/ann", body)
+                lat_sum["ANN"] += (time.time() - t0)
+                lat_cnt["ANN"] += 1
             except Exception as e:
                 print(f"  ANN error: {e}")
                 ann_hits = []
@@ -265,7 +277,10 @@ def main() -> int:
 
         if INCLUDE_HYBRID or MODE == "hybrid":
             try:
+                t0 = time.time()
                 hyb_hits = request_search(API_BASE, "/v1/search/hybrid", body)
+                lat_sum["HYBRID"] += (time.time() - t0)
+                lat_cnt["HYBRID"] += 1
             except Exception as e:
                 print(f"  HYBRID error: {e}")
                 hyb_hits = []
@@ -340,6 +355,42 @@ def main() -> int:
                     present = len(exp_set.intersection(topk_set))
                     recall = present / len(exp_set)
                     recall_sum[method] += recall
+                # Precision@k (doc-level, unique containers)
+                denom = min(TOP_K, len(topk_set)) if TOP_K else len(topk_set)
+                prec = (len(exp_set.intersection(topk_set)) / denom) if denom else 0.0
+                precision_sum[method] += prec
+                # nDCG@k (binary gains, first occurrence per container)
+                dcg = 0.0
+                seen = set()
+                rel_seen = set()
+                rank_pos = 0
+                for cid in topk_containers:
+                    if cid in seen:
+                        continue
+                    seen.add(cid)
+                    rank_pos += 1
+                    if cid in exp_set:
+                        rel_seen.add(cid)
+                        dcg += 1.0 / (math.log2(rank_pos + 1))
+                ideal = min(len(exp_set), TOP_K)
+                idcg = sum(1.0 / (math.log2(i + 1)) for i in range(1, ideal + 1)) if ideal > 0 else 0.0
+                ndcg = (dcg / idcg) if idcg > 0 else 0.0
+                ndcg_sum[method] += ndcg
+                # MAP@k (AP@k with doc-level, first occurrence per container)
+                ap = 0.0
+                seen = set()
+                rel_count = 0
+                rank_pos = 0
+                for cid in topk_containers:
+                    if cid in seen:
+                        continue
+                    seen.add(cid)
+                    rank_pos += 1
+                    if cid in exp_set:
+                        rel_count += 1
+                        ap += rel_count / rank_pos
+                ap = ap / len(exp_set) if len(exp_set) > 0 else 0.0
+                map_sum[method] += ap
                 # Save rank summary for report
                 row_for_report[f"{method}_rank"] = found
                 row_for_report[f"{method}_recall"] = recall
@@ -391,6 +442,13 @@ def main() -> int:
             mrr_avg = (mrr[method] / total_eval)
             recall_avg = (recall_sum[method] / total_eval)
             print(f"  {method:<6} HIT@{TOP_K}: {hits[method]}/{total_eval} ({hit_rate:.1f}%)  MRR@{TOP_K}: {mrr_avg:.3f}  Recall@{TOP_K}: {recall_avg:.3f}")
+        print("\nAdditional metrics:")
+        for method in methods:
+            p_avg = precision_sum[method] / total_eval
+            ndcg_avg = ndcg_sum[method] / total_eval
+            map_avg = map_sum[method] / total_eval
+            lat_ms = (lat_sum[method] / lat_cnt[method] * 1000.0) if lat_cnt[method] else 0.0
+            print(f"  {method:<6} P@{TOP_K}: {p_avg:.3f}  nDCG@{TOP_K}: {ndcg_avg:.3f}  MAP@{TOP_K}: {map_avg:.3f}  |  avg latency: {lat_ms:.1f} ms")
         # Candidate-stage recall
         if cand_eval_count:
             print("\nCandidate-stage recall:")
@@ -413,13 +471,17 @@ def main() -> int:
         lines.append(f"- K: `{TOP_K}`  •  Total evaluated: `{total_eval}`\n\n")
         # Metrics table
         lines.append("## Summary\n")
-        lines.append("Method | HIT@k | MRR@k | Recall@k\n")
-        lines.append("--- | ---: | ---: | ---:\n")
+        lines.append("Method | HIT@k | MRR@k | Recall@k | P@k | nDCG@k | MAP@k | Avg Latency (ms)\n")
+        lines.append("--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: \n")
         for method in methods:
             hit_rate = (hits[method] / total_eval) * 100.0
             mrr_avg = (mrr[method] / total_eval)
             recall_avg = (recall_sum[method] / total_eval)
-            lines.append(f"{method} | {hit_rate:.1f}% | {mrr_avg:.3f} | {recall_avg:.3f}\n")
+            p_avg = precision_sum[method] / total_eval
+            ndcg_avg = ndcg_sum[method] / total_eval
+            map_avg = map_sum[method] / total_eval
+            lat_ms = (lat_sum[method] / lat_cnt[method] * 1000.0) if lat_cnt[method] else 0.0
+            lines.append(f"{method} | {hit_rate:.1f}% | {mrr_avg:.3f} | {recall_avg:.3f} | {p_avg:.3f} | {ndcg_avg:.3f} | {map_avg:.3f} | {lat_ms:.1f}\n")
         lines.append("\n")
         # Candidate-stage recall section
         if cand_eval_count:

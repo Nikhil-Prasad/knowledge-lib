@@ -1,6 +1,19 @@
 # knowledge-lib
 
-Self‑contained API for ingestion and hybrid retrieval using Postgres (pgvector) and MinIO. Local Postgres is run via Docker Compose to keep setup simple and reproducible.
+Knowledge-lib is an attempt at standardizing ingestion and retrieval via an API interface. My rationale for doing this is: 
+
+1) I plan on building many multi-agent systems and having a centralized search and retrieval mechanism makes some sense to me. 
+2) Most of the vectorDB + search systems are unneeded/redundant. 
+3) Retrieval is fundamentally a data engineering problem. Solving that problem 100 times for 100 different apps/agent set ups seems unneeded. 
+4) I prefer unification of modalities
+
+We need to think about this from the perspective of, what exactly should a system specialized on "knowledge" entail? We know that LLMs are primarily text machines, so if you are building a system where an LLM must generate based on some passed context, you ultimately have to build a system/pipeline that converts multiple modalities into textual representations (columns, embeddings, key words, metadata, summaries, graphs, etc.) that you can retrieve across various RAG apps as you build them. For this purpose; you need a unified ingestion service. This service can (and will) utilize multiple models, techniques in order to transform N modalities (text, audio, video, PDFs, etc) into a textual representation. 
+
+As such we should first begin by properly representing the "objects" and data flow transfer that such an ingestion system would entail. Details on those are in /docs/schemas.md
+
+Secondly, we must think about retrieval. Assuming that all forms of data are ingested into a set of representations that can then be retrieved via SQL queries on the corresponding table that each schema holds. This allows for a lot of cross cutting, as the SQL layer is also matched with a minio/s3 layer, and since the models are multimodal, you can augment generation with actually passing in images (if needed) and parts of PDFs. But the primary layer is text.
+
+Standardizing this into one API service, while it may add a bit of latency, unifies an approach for all long running agents. 
 
 ## Overview
 
