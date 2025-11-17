@@ -149,6 +149,73 @@ class Settings(BaseSettings):
         validation_alias=AliasChoices("HYBRID_PER_CONTAINER_LIMIT", "hybrid_per_container_limit"),
     )
 
+    # PDF ingestion settings
+    pdf_layout_provider: str = Field(
+        default="hf",  # options: noop | hf (DocLayNet detector)
+        validation_alias=AliasChoices("PDF_LAYOUT_PROVIDER", "pdf_layout_provider"),
+    )
+    pdf_ocr_provider: str = Field(
+        default="got",  # options: noop | hf | deepseek | got
+        validation_alias=AliasChoices("PDF_OCR_PROVIDER", "pdf_ocr_provider"),
+    )
+    # Optional model overrides (HF repo IDs)
+    pdf_layout_model: str | None = Field(
+        default="cmarkea/detr-layout-detection",
+        validation_alias=AliasChoices("PDF_LAYOUT_MODEL", "pdf_layout_model"),
+    )
+    pdf_ocr_model: str | None = Field(
+        default="stepfun-ai/GOT-OCR-2.0-hf",
+        validation_alias=AliasChoices("PDF_OCR_MODEL", "pdf_ocr_model"),
+    )
+    pdf_table_det_model: str | None = Field(
+        default="microsoft/table-transformer-detection",
+        validation_alias=AliasChoices("PDF_TABLE_DET_MODEL", "pdf_table_det_model"),
+    )
+    pdf_table_struct_model: str | None = Field(
+        default="microsoft/table-transformer-structure-recognition",
+        validation_alias=AliasChoices("PDF_TABLE_STRUCT_MODEL", "pdf_table_struct_model"),
+    )
+
+    # Artifacts storage (local file URIs for now)
+    artifacts_base_dir: str = Field(
+        default="data/artifacts",
+        validation_alias=AliasChoices("ARTIFACTS_BASE_DIR", "artifacts_base_dir"),
+    )
+    artifacts_image_format: str = Field(
+        default="webp",  # webp|png|jpg
+        validation_alias=AliasChoices("ARTIFACTS_IMAGE_FORMAT", "artifacts_image_format"),
+    )
+    artifacts_image_quality: int = Field(
+        default=85,
+        validation_alias=AliasChoices("ARTIFACTS_IMAGE_QUALITY", "artifacts_image_quality"),
+    )
+    pdf_render_dpi: int = Field(
+        default=200,
+        validation_alias=AliasChoices("PDF_RENDER_DPI", "pdf_render_dpi"),
+    )
+    pdf_max_pages: int = Field(
+        default=200,
+        validation_alias=AliasChoices("PDF_MAX_PAGES", "pdf_max_pages"),
+    )
+
+    # Page routing thresholds (0..1 floats)
+    route_text_coverage_high: float = Field(
+        default=0.2,
+        validation_alias=AliasChoices("ROUTE_TEXT_COVERAGE_HIGH", "route_text_coverage_high"),
+    )
+    route_text_coverage_low: float = Field(
+        default=0.02,
+        validation_alias=AliasChoices("ROUTE_TEXT_COVERAGE_LOW", "route_text_coverage_low"),
+    )
+    route_image_coverage_high: float = Field(
+        default=0.6,
+        validation_alias=AliasChoices("ROUTE_IMAGE_COVERAGE_HIGH", "route_image_coverage_high"),
+    )
+    route_sandwich_threshold: float = Field(
+        default=0.5,
+        validation_alias=AliasChoices("ROUTE_SANDWICH_THRESHOLD", "route_sandwich_threshold"),
+    )
+
     # pydantic-settings configuration
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", case_sensitive=False, extra="ignore"

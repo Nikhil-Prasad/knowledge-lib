@@ -23,6 +23,7 @@ class TextSegment(SegmentBase):
     section_path: Optional[str] = None
     bbox: Optional[BBox] = None
     text: str
+    text_source: Optional[Literal["vector", "ocr", "fused"]] = None
     pre_score: Optional[float] = None
     post_score: Optional[float] = None
     emb_model: Optional[str] = None

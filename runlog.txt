@@ -1,0 +1,769 @@
+2025-11-16 23:11:38,807 DEBUG asyncio: Using selector: KqueueSelector
+2025-11-16 23:11:38,851 INFO src.app.services.ingest.container_pipeline: Created PDF container 8602430c-3da0-42c5-bcc1-0de8b8f03483 for /Users/nikhilprasad/crown/knowledge-lib/pdfs/1810.03163.pdf
+2025-11-16 23:11:38,881 INFO src.app.services.ingest.container_pipeline: Processing container 8602430c-3da0-42c5-bcc1-0de8b8f03483: 25 pages detected
+2025-11-16 23:11:38,913 DEBUG PIL.Image: Importing AvifImagePlugin
+2025-11-16 23:11:38,914 DEBUG PIL.Image: Importing BlpImagePlugin
+2025-11-16 23:11:38,915 DEBUG PIL.Image: Importing BmpImagePlugin
+2025-11-16 23:11:38,915 DEBUG PIL.Image: Importing BufrStubImagePlugin
+2025-11-16 23:11:38,915 DEBUG PIL.Image: Importing CurImagePlugin
+2025-11-16 23:11:38,915 DEBUG PIL.Image: Importing DcxImagePlugin
+2025-11-16 23:11:38,915 DEBUG PIL.Image: Importing DdsImagePlugin
+2025-11-16 23:11:38,916 DEBUG PIL.Image: Importing EpsImagePlugin
+2025-11-16 23:11:38,916 DEBUG PIL.Image: Importing FitsImagePlugin
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Importing FliImagePlugin
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Importing FpxImagePlugin
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Image: failed to import FpxImagePlugin: No module named 'olefile'
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Importing FtexImagePlugin
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Importing GbrImagePlugin
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Importing GifImagePlugin
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Importing GribStubImagePlugin
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Importing Hdf5StubImagePlugin
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Importing IcnsImagePlugin
+2025-11-16 23:11:38,917 DEBUG PIL.Image: Importing IcoImagePlugin
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Importing ImImagePlugin
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Importing ImtImagePlugin
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Importing IptcImagePlugin
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Importing JpegImagePlugin
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Importing Jpeg2KImagePlugin
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Importing McIdasImagePlugin
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Importing MicImagePlugin
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Image: failed to import MicImagePlugin: No module named 'olefile'
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Importing MpegImagePlugin
+2025-11-16 23:11:38,918 DEBUG PIL.Image: Importing MpoImagePlugin
+2025-11-16 23:11:38,919 DEBUG PIL.Image: Importing MspImagePlugin
+2025-11-16 23:11:38,919 DEBUG PIL.Image: Importing PalmImagePlugin
+2025-11-16 23:11:38,919 DEBUG PIL.Image: Importing PcdImagePlugin
+2025-11-16 23:11:38,919 DEBUG PIL.Image: Importing PcxImagePlugin
+2025-11-16 23:11:38,919 DEBUG PIL.Image: Importing PdfImagePlugin
+2025-11-16 23:11:38,921 DEBUG PIL.Image: Importing PixarImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing PngImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing PpmImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing PsdImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing QoiImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing SgiImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing SpiderImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing SunImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing TgaImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing TiffImagePlugin
+2025-11-16 23:11:38,922 DEBUG PIL.Image: Importing WebPImagePlugin
+2025-11-16 23:11:38,924 DEBUG PIL.Image: Importing WmfImagePlugin
+2025-11-16 23:11:38,924 DEBUG PIL.Image: Importing XbmImagePlugin
+2025-11-16 23:11:38,924 DEBUG PIL.Image: Importing XpmImagePlugin
+2025-11-16 23:11:38,924 DEBUG PIL.Image: Importing XVThumbImagePlugin
+2025-11-16 23:11:39,111 DEBUG src.app.services.ingest.container_pipeline: Saved page 1 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-1-200dpi.webp
+2025-11-16 23:11:39,327 DEBUG src.app.services.ingest.container_pipeline: Saved page 2 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-2-200dpi.webp
+2025-11-16 23:11:39,547 DEBUG src.app.services.ingest.container_pipeline: Saved page 3 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-3-200dpi.webp
+2025-11-16 23:11:39,746 DEBUG src.app.services.ingest.container_pipeline: Saved page 4 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-4-200dpi.webp
+2025-11-16 23:11:39,946 DEBUG src.app.services.ingest.container_pipeline: Saved page 5 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-5-200dpi.webp
+2025-11-16 23:11:40,126 DEBUG src.app.services.ingest.container_pipeline: Saved page 6 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-6-200dpi.webp
+2025-11-16 23:11:40,322 DEBUG src.app.services.ingest.container_pipeline: Saved page 7 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-7-200dpi.webp
+2025-11-16 23:11:40,512 DEBUG src.app.services.ingest.container_pipeline: Saved page 8 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-8-200dpi.webp
+2025-11-16 23:11:40,734 DEBUG src.app.services.ingest.container_pipeline: Saved page 9 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-9-200dpi.webp
+2025-11-16 23:11:40,942 DEBUG src.app.services.ingest.container_pipeline: Saved page 10 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-10-200dpi.webp
+2025-11-16 23:11:41,120 DEBUG src.app.services.ingest.container_pipeline: Saved page 11 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-11-200dpi.webp
+2025-11-16 23:11:41,297 DEBUG src.app.services.ingest.container_pipeline: Saved page 12 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-12-200dpi.webp
+2025-11-16 23:11:41,586 DEBUG src.app.services.ingest.container_pipeline: Saved page 13 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-13-200dpi.webp
+2025-11-16 23:11:41,792 DEBUG src.app.services.ingest.container_pipeline: Saved page 14 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-14-200dpi.webp
+2025-11-16 23:11:41,940 DEBUG src.app.services.ingest.container_pipeline: Saved page 15 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-15-200dpi.webp
+2025-11-16 23:11:42,162 DEBUG src.app.services.ingest.container_pipeline: Saved page 16 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-16-200dpi.webp
+2025-11-16 23:11:42,367 DEBUG src.app.services.ingest.container_pipeline: Saved page 17 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-17-200dpi.webp
+2025-11-16 23:11:42,591 DEBUG src.app.services.ingest.container_pipeline: Saved page 18 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-18-200dpi.webp
+2025-11-16 23:11:42,821 DEBUG src.app.services.ingest.container_pipeline: Saved page 19 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-19-200dpi.webp
+2025-11-16 23:11:43,040 DEBUG src.app.services.ingest.container_pipeline: Saved page 20 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-20-200dpi.webp
+2025-11-16 23:11:43,254 DEBUG src.app.services.ingest.container_pipeline: Saved page 21 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-21-200dpi.webp
+2025-11-16 23:11:43,472 DEBUG src.app.services.ingest.container_pipeline: Saved page 22 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-22-200dpi.webp
+2025-11-16 23:11:43,683 DEBUG src.app.services.ingest.container_pipeline: Saved page 23 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-23-200dpi.webp
+2025-11-16 23:11:43,831 DEBUG src.app.services.ingest.container_pipeline: Saved page 24 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-24-200dpi.webp
+2025-11-16 23:11:43,951 DEBUG src.app.services.ingest.container_pipeline: Saved page 25 render → file://data/artifacts/containers/8602430c-3da0-42c5-bcc1-0de8b8f03483/pages/page-25-200dpi.webp
+2025-11-16 23:11:46,068 DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): huggingface.co:443
+2025-11-16 23:11:46,191 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /cmarkea/detr-layout-detection/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+2025-11-16 23:11:46,217 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/cmarkea/detr-layout-detection/b30837562d210bde4a3a0bb246133f4fdeb29fbe/preprocessor_config.json HTTP/1.1" 200 0
+2025-11-16 23:11:46,257 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /cmarkea/detr-layout-detection/resolve/main/processor_config.json HTTP/1.1" 404 0
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+2025-11-16 23:11:46,297 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /cmarkea/detr-layout-detection/resolve/main/config.json HTTP/1.1" 307 0
+2025-11-16 23:11:46,317 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/cmarkea/detr-layout-detection/b30837562d210bde4a3a0bb246133f4fdeb29fbe/config.json HTTP/1.1" 200 0
+2025-11-16 23:11:46,360 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /cmarkea/detr-layout-detection/resolve/main/config.json HTTP/1.1" 307 0
+2025-11-16 23:11:46,382 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/cmarkea/detr-layout-detection/b30837562d210bde4a3a0bb246133f4fdeb29fbe/config.json HTTP/1.1" 200 0
+2025-11-16 23:11:46,399 INFO timm.models._builder: Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2025-11-16 23:11:46,437 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /timm/resnet50.a1_in1k/resolve/main/model.safetensors HTTP/1.1" 302 0
+2025-11-16 23:11:46,438 INFO timm.models._hub: [timm/resnet50.a1_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.downsample.0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.downsample.1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.downsample.1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.downsample.0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.downsample.1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.downsample.1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.downsample.0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.downsample.1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.downsample.1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.downsample.0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.downsample.1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.downsample.1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+2025-11-16 23:11:46,445 INFO timm.models._builder: Missing keys (fc.weight, fc.bias) discovered while loading pretrained weights. This is expected if model is being adapted.
+2025-11-16 23:11:47,239 DEBUG src.app.services.ingest.container_pipeline: Page 1: 16 regions detected (sample classes: ['text'])
+2025-11-16 23:11:47,253 INFO src.app.services.ingest.container_pipeline: Page 1: route=hybrid text_cov=0.000 image_cov=0.000 sandwich=0.000 spans=0 regions=16
+2025-11-16 23:11:47,348 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/config.json HTTP/1.1" 307 0
+2025-11-16 23:11:47,367 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/config.json HTTP/1.1" 200 0
+2025-11-16 23:11:47,405 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/modeling_GOT.py HTTP/1.1" 307 0
+2025-11-16 23:11:47,425 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py HTTP/1.1" 200 0
+<unknown>:623: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:859: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+2025-11-16 23:11:47,693 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/got_vision_b.py HTTP/1.1" 307 0
+2025-11-16 23:11:47,723 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/got_vision_b.py HTTP/1.1" 200 0
+2025-11-16 23:11:47,724 DEBUG filelock: Attempting to acquire lock 13033557552 on /Users/nikhilprasad/.cache/huggingface/hub/.locks/models--stepfun-ai--GOT-OCR2_0/108fac3e0cd05f0706de8b41d9d28d760c569a25.lock
+2025-11-16 23:11:47,725 DEBUG filelock: Lock 13033557552 acquired on /Users/nikhilprasad/.cache/huggingface/hub/.locks/models--stepfun-ai--GOT-OCR2_0/108fac3e0cd05f0706de8b41d9d28d760c569a25.lock
+2025-11-16 23:11:47,752 DEBUG urllib3.connectionpool: https://huggingface.co:443 "GET /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/got_vision_b.py HTTP/1.1" 200 None
+2025-11-16 23:11:47,783 DEBUG filelock: Attempting to release lock 13033557552 on /Users/nikhilprasad/.cache/huggingface/hub/.locks/models--stepfun-ai--GOT-OCR2_0/108fac3e0cd05f0706de8b41d9d28d760c569a25.lock
+2025-11-16 23:11:47,783 DEBUG filelock: Lock 13033557552 released on /Users/nikhilprasad/.cache/huggingface/hub/.locks/models--stepfun-ai--GOT-OCR2_0/108fac3e0cd05f0706de8b41d9d28d760c569a25.lock
+A new version of the following files was downloaded from https://huggingface.co/stepfun-ai/GOT-OCR2_0:
+- got_vision_b.py
+. Make sure to double-check they do not contain any added malicious code. To avoid downloading new versions of the code file, you can pin a revision.
+2025-11-16 23:11:47,827 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/render_tools.py HTTP/1.1" 307 0
+2025-11-16 23:11:47,854 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/render_tools.py HTTP/1.1" 200 0
+2025-11-16 23:11:47,854 DEBUG filelock: Attempting to acquire lock 13066209616 on /Users/nikhilprasad/.cache/huggingface/hub/.locks/models--stepfun-ai--GOT-OCR2_0/a830ec663f1575b6a7d1adaeb50c18e9d6ca516f.lock
+2025-11-16 23:11:47,854 DEBUG filelock: Lock 13066209616 acquired on /Users/nikhilprasad/.cache/huggingface/hub/.locks/models--stepfun-ai--GOT-OCR2_0/a830ec663f1575b6a7d1adaeb50c18e9d6ca516f.lock
+2025-11-16 23:11:47,881 DEBUG urllib3.connectionpool: https://huggingface.co:443 "GET /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/render_tools.py HTTP/1.1" 200 None
+2025-11-16 23:11:47,882 DEBUG filelock: Attempting to release lock 13066209616 on /Users/nikhilprasad/.cache/huggingface/hub/.locks/models--stepfun-ai--GOT-OCR2_0/a830ec663f1575b6a7d1adaeb50c18e9d6ca516f.lock
+2025-11-16 23:11:47,882 DEBUG filelock: Lock 13066209616 released on /Users/nikhilprasad/.cache/huggingface/hub/.locks/models--stepfun-ai--GOT-OCR2_0/a830ec663f1575b6a7d1adaeb50c18e9d6ca516f.lock
+A new version of the following files was downloaded from https://huggingface.co/stepfun-ai/GOT-OCR2_0:
+- render_tools.py
+. Make sure to double-check they do not contain any added malicious code. To avoid downloading new versions of the code file, you can pin a revision.
+A new version of the following files was downloaded from https://huggingface.co/stepfun-ai/GOT-OCR2_0:
+- got_vision_b.py
+- render_tools.py
+. Make sure to double-check they do not contain any added malicious code. To avoid downloading new versions of the code file, you can pin a revision.
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:623: SyntaxWarning: invalid escape sequence '\l'
+  left_num = outputs.count('\left')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:626: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:626: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:626: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:626: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:626: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:859: SyntaxWarning: invalid escape sequence '\l'
+  left_num = outputs.count('\left')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:862: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:862: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:862: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:862: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/.cache/huggingface/modules/transformers_modules/stepfun_hyphen_ai/GOT_hyphen_OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py:862: SyntaxWarning: invalid escape sequence '\l'
+  outputs = outputs.replace('\left(', '(').replace('\\right)', ')').replace('\left[', '[').replace('\\right]', ']').replace('\left{', '{').replace('\\right}', '}').replace('\left|', '|').replace('\\right|', '|').replace('\left.', '.').replace('\\right.', '.')
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py:2284: FutureWarning: The class `AutoModelForVision2Seq` is deprecated and will be removed in v5.0. Please use `AutoModelForImageTextToText` instead.
+  warnings.warn(
+2025-11-16 23:11:47,940 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/modeling_GOT.py HTTP/1.1" 307 0
+2025-11-16 23:11:47,959 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py HTTP/1.1" 200 0
+<unknown>:623: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:859: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+2025-11-16 23:11:48,054 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/modeling_GOT.py HTTP/1.1" 307 0
+2025-11-16 23:11:48,075 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py HTTP/1.1" 200 0
+<unknown>:623: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:859: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+2025-11-16 23:11:48,086 WARNING src.app.services.ingest.providers.deepseek: DeepSeek-OCR failed to load (Could not load model stepfun-ai/GOT-OCR2_0 with any of the following classes: (<class 'transformers.models.auto.modeling_auto.AutoModelForVision2Seq'>,). See the original errors:
+
+while loading with AutoModelForVision2Seq, an error is thrown:
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 293, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 311, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **fp32_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+
+). Falling back to stepfun-ai/GOT-OCR2_0.
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/src/app/services/ingest/providers/deepseek.py", line 39, in _get_pipeline
+    self._pipe = pipeline(
+                 ^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/__init__.py", line 1027, in pipeline
+    framework, model = infer_framework_load_model(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 333, in infer_framework_load_model
+    raise ValueError(
+ValueError: Could not load model stepfun-ai/GOT-OCR2_0 with any of the following classes: (<class 'transformers.models.auto.modeling_auto.AutoModelForVision2Seq'>,). See the original errors:
+
+while loading with AutoModelForVision2Seq, an error is thrown:
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 293, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 311, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **fp32_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+
+
+2025-11-16 23:11:48,134 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/config.json HTTP/1.1" 307 0
+2025-11-16 23:11:48,154 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/config.json HTTP/1.1" 200 0
+2025-11-16 23:11:48,192 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/modeling_GOT.py HTTP/1.1" 307 0
+2025-11-16 23:11:48,212 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py HTTP/1.1" 200 0
+<unknown>:623: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:859: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+2025-11-16 23:11:48,259 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/modeling_GOT.py HTTP/1.1" 307 0
+2025-11-16 23:11:48,281 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py HTTP/1.1" 200 0
+<unknown>:623: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:859: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+2025-11-16 23:11:48,330 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /stepfun-ai/GOT-OCR2_0/resolve/main/modeling_GOT.py HTTP/1.1" 307 0
+2025-11-16 23:11:48,351 DEBUG urllib3.connectionpool: https://huggingface.co:443 "HEAD /api/resolve-cache/models/stepfun-ai/GOT-OCR2_0/979938bf89ccdc949c0131ddd3841e24578a4742/modeling_GOT.py HTTP/1.1" 200 0
+<unknown>:623: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:626: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:859: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+<unknown>:862: SyntaxWarning: invalid escape sequence '\l'
+Created container: 8602430c-3da0-42c5-bcc1-0de8b8f03483
+Processing PDF pages (layout + text/ocr + figures/tables)...
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/src/app/services/ingest/providers/deepseek.py", line 39, in _get_pipeline
+    self._pipe = pipeline(
+                 ^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/__init__.py", line 1027, in pipeline
+    framework, model = infer_framework_load_model(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 333, in infer_framework_load_model
+    raise ValueError(
+ValueError: Could not load model stepfun-ai/GOT-OCR2_0 with any of the following classes: (<class 'transformers.models.auto.modeling_auto.AutoModelForVision2Seq'>,). See the original errors:
+
+while loading with AutoModelForVision2Seq, an error is thrown:
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 293, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 311, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **fp32_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/scripts/process_pdf_local.py", line 63, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/scripts/process_pdf_local.py", line 58, in main
+    asyncio.run(_run(pdf, coll))
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/scripts/process_pdf_local.py", line 33, in _run
+    await process_pdf_container_async(container_id=container_id, pdf_path=pdf_path)
+  File "/Users/nikhilprasad/crown/knowledge-lib/src/app/services/ingest/container_pipeline.py", line 282, in process_pdf_container_async
+    text = await ocr.ocr_region(pdf_path=pdf_path, page_no=p.page_no, region=r)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/src/app/services/ingest/providers/deepseek.py", line 71, in ocr_region
+    pipe = self._get_pipeline()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/src/app/services/ingest/providers/deepseek.py", line 51, in _get_pipeline
+    self._pipe = pipeline(
+                 ^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/__init__.py", line 1027, in pipeline
+    framework, model = infer_framework_load_model(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 333, in infer_framework_load_model
+    raise ValueError(
+ValueError: Could not load model stepfun-ai/GOT-OCR2_0 with any of the following classes: (<class 'transformers.models.auto.modeling_auto.AutoModelForVision2Seq'>,). See the original errors:
+
+while loading with AutoModelForVision2Seq, an error is thrown:
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/src/app/services/ingest/providers/deepseek.py", line 39, in _get_pipeline
+    self._pipe = pipeline(
+                 ^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/__init__.py", line 1027, in pipeline
+    framework, model = infer_framework_load_model(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 333, in infer_framework_load_model
+    raise ValueError(
+ValueError: Could not load model stepfun-ai/GOT-OCR2_0 with any of the following classes: (<class 'transformers.models.auto.modeling_auto.AutoModelForVision2Seq'>,). See the original errors:
+
+while loading with AutoModelForVision2Seq, an error is thrown:
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 293, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 311, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **fp32_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 293, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 311, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **fp32_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py", line 2289, in from_pretrained
+    return super().from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 607, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers_modules.stepfun_hyphen_ai.GOT_hyphen_OCR2_0.979938bf89ccdc949c0131ddd3841e24578a4742.modeling_GOT.GOTConfig'> for this kind of AutoModel: AutoModelForVision2Seq.
+Model type should be one of BlipConfig, Blip2Config, ChameleonConfig, GitConfig, Idefics2Config, Idefics3Config, InstructBlipConfig, InstructBlipVideoConfig, Kosmos2Config, Kosmos2_5Config, LlavaConfig, LlavaNextConfig, LlavaNextVideoConfig, LlavaOnevisionConfig, Mistral3Config, MllamaConfig, Ovis2Config, PaliGemmaConfig, Pix2StructConfig, Qwen2_5_VLConfig, Qwen2VLConfig, Qwen3VLConfig, Qwen3VLMoeConfig, VideoLlavaConfig, VipLlavaConfig, VisionEncoderDecoderConfig.
+
+
+

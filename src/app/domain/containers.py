@@ -24,6 +24,18 @@ class Page(BaseModel):
     image_uri: Optional[str] = None
 
 
+class PageAnalysis(BaseModel):
+    container_id: UUID
+    page_no: Annotated[int, Field(ge=1)]
+    route: Literal["digital", "ocr", "hybrid"]
+    text_coverage: Optional[float] = None
+    image_coverage: Optional[float] = None
+    sandwich_score: Optional[float] = None
+    quality_score: Optional[float] = None
+    timings: Optional[dict] = None
+    version: Optional[str] = None
+
+
 # ----- table containers ----- #
 
 class TableSchemaCol(BaseModel):

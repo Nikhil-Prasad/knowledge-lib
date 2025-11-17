@@ -8,9 +8,14 @@ import httpx
 
 
 def search(api: str, query: str, k: int) -> dict:
+    """Call the hybrid search endpoint by default.
+
+    Hybrid uses both FTS and ANN with RRF fusion and generally provides
+    better recall/precision than FTS-only for natural-language queries.
+    """
     body = {"query": query, "k": k}
     with httpx.Client(timeout=30.0) as client:
-        r = client.post(f"{api.rstrip('/')}/v1/search", json=body)
+        r = client.post(f"{api.rstrip('/')}/v1/search/hybrid", json=body)
         r.raise_for_status()
         return r.json()
 
@@ -29,4 +34,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
