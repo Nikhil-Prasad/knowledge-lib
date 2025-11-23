@@ -29,4 +29,4 @@ async def embed_many(texts: Sequence[str], model: str = "text-embedding-3-small"
         return []
     client = get_client()
     resp = await client.embeddings.create(model=model, input=list(texts))
-    return [d.embedding for d in resp.data]  # type: ignore[list-item]
+    return [d.embedding for d in resp.data]  

@@ -9,7 +9,9 @@ from src.app.domain.common import BBox
 from src.app.settings import get_settings
 
 
-class PymupdfPager(PDFPager):
+class PDFPagerImpl(PDFPager):
+    """PDF pager implementation using PyMuPDF internally."""
+    
     async def pages(self, *, pdf_path: Path, max_pages: int) -> List[PDFPageInfo]:
         import fitz  # PyMuPDF
 

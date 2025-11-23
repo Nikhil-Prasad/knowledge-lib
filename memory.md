@@ -229,7 +229,227 @@ Notes
    - `text_segments.text_source` added for provenance; figure crops exported; citations parsed.
    - New CLI `scripts/process_pdf_local.py` for local PDF runs with logging.
 
+## Concurrency & Performance Optimization
+
+### Python GIL Mechanics
+- **GIL (Global Interpreter Lock)**: A mutex that prevents multiple threads from executing Python bytecode simultaneously.
+- **Relay Race Analogy**: Threads pass the GIL like a baton—only the holder can execute Python code.
+- **GIL Release**: Happens every ~100 bytecodes, on I/O operations, and when calling into C extensions.
+- **Key Insight**: The GIL prevents data races in pure Python but also prevents true parallelism for Python code.
+
+### C-Extension Parallelism
+- **PyTorch/NumPy/PyMuPDF**: Written in C/C++, these libraries release the GIL during heavy computations.
+- **True Parallelism**: When GIL is released, multiple threads can execute C/C++ code simultaneously.
+- **Pattern**: `Py_BEGIN_ALLOW_THREADS` → C++ computation → `Py_END_ALLOW_THREADS`
+- **Benefit**: ThreadPoolExecutor with C extensions gives actual parallel speedup, not just concurrency.
+
+### ThreadPoolExecutor Pattern
+```python
+# For C-bound work (rendering, models)
+executor = ThreadPoolExecutor(max_workers=4)
+loop = asyncio.get_event_loop()
+result = await loop.run_in_executor(executor, c_bound_function, args)
+```
+- **When to use**: PyMuPDF rendering, PyTorch inference, PIL image operations
+- **Why it works**: These operations release GIL → threads run in parallel
+- **Avoid for**: Pure Python compute (no GIL release → no speedup)
+
+### AsyncIO Orchestration
+- **Event Loop**: Single thread managing I/O operations and scheduling coroutines
+- **Pattern**: Event loop for I/O orchestration + thread pool for CPU-bound work
+- **Benefits**: Responsive system, efficient I/O handling, true parallelism for compute
+
+### Comparison with C++/Rust
+- **C++**: No GIL, manual memory management, fine-grained locking
+  - Pro: True parallelism by default
+  - Con: Manual synchronization, race conditions, memory safety issues
+- **Rust**: No GIL, ownership system enforces thread safety at compile time
+  - Pro: True parallelism + compile-time safety
+  - Con: Steep learning curve, borrow checker complexity
+- **Python**: GIL enforces sequential execution of Python code
+  - Pro: No races in Python code, simple mental model
+  - Con: No parallelism for pure Python, must use C extensions or processes
+
+## PDF Pipeline Optimization Strategy
+
+### Current Bottlenecks
+1. **Sequential Page Rendering** (~200ms per page × 40 pages = 8s sequential)
+   - PyMuPDF renders each page one by one in a loop
+   
+2. **Sequential Page Processing** (layout + OCR + extraction per page)
+   - DETR layout detection
+   - GOT-OCR inference
+   - Text extraction and region processing
+   - All happening serially
+
+3. **Multiple DB Sessions**
+   - Opening/closing connections repeatedly
+   - Each page creates its own session for PageAnalysis
+   - Separate sessions for segments, figures, tables
+
+4. **No Batching**
+   - Models process one item at a time
+   - No leverage of GPU batch efficiency
+
+### Optimization Approach
+
+#### Stage 1: Parallel Rendering (ThreadPool)
+```python
+# Render all pages concurrently
+with ThreadPoolExecutor(max_workers=4) as executor:
+    page_images = list(executor.map(render_page, page_infos))
+```
+- Expected: 4× speedup (40 pages / 4 workers = 10 batches vs 40 sequential)
+
+#### Stage 2: Concurrent Page Processing (AsyncIO + ThreadPool)
+```python
+async def process_page(page_info, image):
+    # Layout detection in thread
+    regions = await run_in_executor(layout_detector, page_info)
+    # OCR in thread
+    text = await run_in_executor(ocr_provider, regions)
+    return results
+
+# Process all pages concurrently
+async with asyncio.TaskGroup() as tg:
+    for page in pages:
+        tg.create_task(process_page(page))
+```
+- Semaphore to limit concurrent pages (memory bound)
+- ThreadPool for model inference (GIL release)
+
+#### Stage 3: Batch DB Operations
+```python
+# Collect all results first
+results = await process_all_pages_concurrent()
+
+# Single transaction
+async with AsyncSessionLocal() as session:
+    # Batch insert all data
+    session.add_all(page_analyses)
+    session.add_all(text_segments)
+    session.add_all(figures)
+    await session.commit()  # One commit!
+```
+
+### Expected Improvements
+- **40-page PDF current**: ~40 seconds (sequential everything)
+- **40-page PDF optimized**: ~10-12 seconds
+  - Rendering: 40 pages ÷ 4 workers = 10 seconds
+  - Processing: Concurrent with rendering + overhead
+  - DB: Single transaction < 1 second
+- **Overall**: ~3-4× speedup expected
+
+## Performance Optimization Todo List
+
+### Immediate Tasks
+- [ ] Update memory.md with concurrency discussion ✓
+- [ ] Add profiling decorator to process_pdf_local.py
+- [ ] Get baseline timing measurements
+- [ ] Add per-provider ThreadPoolExecutor wrapper for compute-bound methods
+- [ ] Make max_workers configurable in settings  
+
+### Core Optimizations
+- [ ] Add TaskGroups for concurrent page rendering
+- [ ] Add TaskGroups for concurrent page processing
+- [ ] Optimize DB session usage (batch operations)
+- [ ] Add semaphores for concurrency control
+
+### Fine Tuning
+- [ ] Add optional batching for page-level inference
+- [ ] Set sensible PyTorch thread/env defaults for MPS (avoid oversubscription)
+- [ ] Profile throughput/latency trade-offs and document recommendations
+
+### Configuration
+```python
+# New settings to add
+PDF_RENDER_MAX_WORKERS = 4       # Rendering threads
+PDF_PROCESS_MAX_WORKERS = 2      # Model inference threads  
+PDF_MAX_CONCURRENT_PAGES = 8     # Semaphore for memory control
+TORCH_NUM_THREADS = 1            # Prevent oversubscription
+```
+
+## Stage 2: Cross-Request Batch Aggregation (Future)
+
+For production APIs serving concurrent requests, implement cross-request batching to optimize GPU utilization while keeping memory per request low:
+
+### Architecture
+```python
+class GPUBatchAggregator:
+    """Collect pages from multiple requests and batch them together for GPU ops"""
+    def __init__(self, batch_size=8, batch_timeout=100):
+        self.pending_items = []  # [(request_id, page_data)]
+        self.batch_size = batch_size
+        self.batch_timeout = batch_timeout  # ms
+        
+    async def add_item(self, request_id, item):
+        self.pending_items.append((request_id, item))
+        
+        # Trigger batch processing on size or timeout
+        if len(self.pending_items) >= self.batch_size:
+            await self._process_batch()
+            
+    async def _process_batch(self):
+        # Mix items from different requests into one GPU batch
+        batch_items = self.pending_items[:self.batch_size]
+        batch_data = [item[1] for item in batch_items]
+        
+        # Single GPU call for items from multiple requests
+        results = await model_inference(batch_data)
+        
+        # Route results back to correct requests
+        for (req_id, _), result in zip(batch_items, results):
+            await route_to_request(req_id, result)
+```
+
+### Benefits
+- **Low memory per request**: Sequential processing within each request
+- **High GPU utilization**: Batching across requests
+- **Fair scheduling**: Round-robin or priority-based
+- **Configurable latency**: Timeout ensures bounded wait time
+
+### Deployment Considerations
+- Use for high-traffic APIs (10+ concurrent requests)
+- Monitor p50/p95/p99 latencies
+- Adjust batch size based on traffic patterns
+- Consider separate queues per model type
+
+## Memory & Cost Analysis
+
+### Single Request Memory Profile
+Based on profiling a 25-page PDF:
+- **Page images (200 DPI)**: ~15MB per page in memory (tensor form)
+- **Model memory**: ~2.8GB constant (DETR + GOT-OCR + Table Transformer + DePlot)
+- **Sequential processing**: 2.8GB + 15MB = ~2.85GB peak
+- **Batched processing (25 pages)**: 2.8GB + 375MB = ~3.2GB peak
+- **700-page textbook batched**: 2.8GB + 10.5GB = ~13.3GB minimum
+
+### AWS Deployment Costs
+For 10-20 concurrent users:
+- **GPU instances**: p3.2xlarge ($3.06/hr) or g5.xlarge ($1.01/hr)
+- **Memory needs**: 20 users × 3GB = 60GB minimum
+- **Better approach**: Queue + worker pool pattern
+  - API servers (CPU only): Handle requests, queue jobs
+  - GPU workers (1-2 instances): Process queued jobs
+  - Auto-scale workers based on queue depth
+
+### Optimization for Cost
+1. **Use spot instances** for GPU workers (70% cheaper)
+2. **Sequential processing** to minimize memory
+3. **Cross-request batching** to maximize GPU usage
+4. **Aggressive model unloading** when idle
+5. **Consider serverless GPU** (Runpod, Banana, Modal)
+
 ## Next Steps
+- **Immediate**: Add memory/GPU profiling to understand exact usage
+- **Stage 1**: Optimize single-request pipeline (current focus)
+  - Concurrent page rendering ✓
+  - Batch processing within request (future)
+  - Memory-aware batch sizing
+- **Stage 2**: Cross-request batch aggregation for APIs
+- **Stage 3**: Distributed processing for large documents
+
+### Other Next Steps
 - Tables: integrate Microsoft Table Transformer
   - Detection: refine/confirm table zone bbox.
   - Structure recognition: extract grid (rows/cols, spans) and OCR per‑cell as needed.

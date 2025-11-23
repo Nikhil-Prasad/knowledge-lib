@@ -3,26 +3,15 @@ from __future__ import annotations
 from pathlib import Path
 from typing import List
 
-from PIL import Image
-
 from .base import LayoutDetector, LayoutRegion
 from src.app.domain.common import BBox
 from src.app.settings import get_settings
+from .utils import render_page_image, get_torch_device
 
 
-def _render_page_image(pdf_path: Path, page_no: int, dpi: int) -> Image.Image:
-    import fitz  # PyMuPDF
-
-    doc = fitz.open(str(pdf_path))
-    page = doc[page_no - 1]
-    zoom = dpi / 72.0
-    mat = fitz.Matrix(zoom, zoom)
-    pix = page.get_pixmap(matrix=mat, alpha=False)
-    img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-    return img
-
-
-class HfLayoutDetector(LayoutDetector):
+class LayoutDetectorDetr(LayoutDetector):
+    """Layout detector using DETR (DEtection TRansformer) model for document layout analysis."""
+    
     _proc = None
     _model = None
     _device = None
@@ -32,19 +21,15 @@ class HfLayoutDetector(LayoutDetector):
             return
         from transformers import AutoImageProcessor
         from transformers.models.detr import DetrForSegmentation
-        import torch
 
         settings = get_settings()
         model_name = getattr(settings, "pdf_layout_model", None) or "cmarkea/detr-layout-detection"
+        
         self._proc = AutoImageProcessor.from_pretrained(model_name)
         self._model = DetrForSegmentation.from_pretrained(model_name)
         self._model.eval()
-        if torch.backends.mps.is_available():
-            self._device = torch.device("mps")
-        elif torch.cuda.is_available():
-            self._device = torch.device("cuda")
-        else:
-            self._device = torch.device("cpu")
+        
+        self._device = get_torch_device()
         self._model.to(self._device)
 
     async def detect(self, *, pdf_path: Path, page_no: int) -> List[LayoutRegion]:
@@ -53,7 +38,7 @@ class HfLayoutDetector(LayoutDetector):
         self._ensure_model()
         settings = get_settings()
         dpi = settings.pdf_render_dpi
-        img = _render_page_image(pdf_path, page_no, dpi)
+        img = render_page_image(pdf_path, page_no, dpi)
         width, height = img.size
 
         with torch.inference_mode():
@@ -93,28 +78,3 @@ class HfLayoutDetector(LayoutDetector):
             )
             regions.append(LayoutRegion(page_no=page_no, rtype=_rtype(lbl), bbox=bx, score=float(score)))
         return regions
-
-
-class HfOCRProvider:
-    async def ocr_region(self, *, pdf_path: Path, page_no: int, region: LayoutRegion) -> str:
-        from transformers import pipeline
-        import torch
-
-        settings = get_settings()
-        model_name = getattr(settings, "pdf_ocr_model", None) or "Salesforce/blip-image-captioning-base"  # placeholder
-        dpi = settings.pdf_render_dpi
-        img = _render_page_image(pdf_path, page_no, dpi)
-        W, H = img.size
-        # crop region (normalized bbox)
-        x0 = int(region.bbox.x0 * W)
-        y0 = int(region.bbox.y0 * H)
-        x1 = int(region.bbox.x1 * W)
-        y1 = int(region.bbox.y1 * H)
-        crop = img.crop((x0, y0, x1, y1))
-
-        # Use generic image-to-text pipeline as a placeholder; real DeepSeek OCR overrides this provider
-        pipe = pipeline("image-to-text", model=model_name, device_map="auto")
-        out = pipe(crop)
-        if isinstance(out, list) and out and isinstance(out[0], dict) and "generated_text" in out[0]:
-            return out[0]["generated_text"].strip()
-        return ""

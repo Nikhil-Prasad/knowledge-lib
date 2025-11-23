@@ -1,0 +1,382 @@
+2025-11-23 15:47:52,830 INFO scripts.add_memory_profiling: 
+[SYSTEM INFO]
+2025-11-23 15:47:52,830 INFO scripts.add_memory_profiling:   CPU Count: 14
+2025-11-23 15:47:52,830 INFO scripts.add_memory_profiling:   Total RAM: 64.0 GB
+2025-11-23 15:47:52,830 INFO scripts.add_memory_profiling:   Available RAM: 42.3 GB
+2025-11-23 15:47:52,842 INFO scripts.add_memory_profiling:   GPU: Apple Silicon (MPS) - Unified Memory Architecture
+2025-11-23 15:47:52,842 INFO scripts.add_memory_profiling: 
+[MEMORY MONITOR] Starting Container Creation
+2025-11-23 15:47:52,842 INFO scripts.add_memory_profiling:   System: 13.50/64.00 GB
+2025-11-23 15:47:52,842 INFO scripts.add_memory_profiling:   Process: 0.24 GB
+2025-11-23 15:47:52,886 INFO src.app.services.ingest.container_pipeline: Created PDF container 7588c378-df4c-44f4-9cd8-444cef2e1533 for /Users/nikhilprasad/crown/knowledge-lib/data/pdfs/1810.03163.pdf
+2025-11-23 15:47:52,886 INFO scripts.add_memory_profiling: 
+[MEMORY MONITOR] Finished Container Creation in 0.04s
+2025-11-23 15:47:52,886 INFO scripts.add_memory_profiling:   Peak System: 13.50 GB
+2025-11-23 15:47:52,886 INFO scripts.add_memory_profiling:   Peak Process: 0.25 GB
+2025-11-23 15:47:52,886 INFO scripts.add_memory_profiling:   System Change: +0.00 GB
+2025-11-23 15:47:52,886 INFO scripts.add_memory_profiling:   Process Change: +0.01 GB
+2025-11-23 15:47:52,886 INFO scripts.add_memory_profiling: 
+[MEMORY MONITOR] Starting BATCHED PDF Processing
+2025-11-23 15:47:52,886 INFO scripts.add_memory_profiling:   System: 13.50/64.00 GB
+2025-11-23 15:47:52,886 INFO scripts.add_memory_profiling:   Process: 0.25 GB
+2025-11-23 15:47:52,954 INFO src.app.services.ingest.container_pipeline_batched: Processing container 7588c378-df4c-44f4-9cd8-444cef2e1533: 25 pages detected
+2025-11-23 15:47:52,954 INFO src.app.services.ingest.container_pipeline_batched: [PROFILE] Page enumeration: 0.003s
+2025-11-23 15:47:54,578 INFO src.app.services.ingest.container_pipeline_batched: [PROFILE] Concurrent page rendering: 1.624s
+2025-11-23 15:47:54,602 INFO src.app.services.ingest.container_pipeline_batched: Starting batched layout detection for 25 pages (batch_size=8)
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+2025-11-23 15:47:57,125 INFO timm.models._builder: Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2025-11-23 15:47:57,164 INFO timm.models._hub: [timm/resnet50.a1_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.downsample.0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.downsample.1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.0.downsample.1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.1.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer1.2.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.downsample.0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.downsample.1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.0.downsample.1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.1.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.2.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer2.3.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.downsample.0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.downsample.1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.0.downsample.1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.1.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.2.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.3.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.4.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer3.5.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.downsample.0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.downsample.1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.0.downsample.1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.1.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.conv1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.conv2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn2.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn2.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.conv3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+/Users/nikhilprasad/crown/knowledge-lib/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py:2446: UserWarning: for layer4.2.bn3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  warnings.warn(
+2025-11-23 15:47:57,184 INFO timm.models._builder: Missing keys (fc.weight, fc.bias) discovered while loading pretrained weights. This is expected if model is being adapted.
+2025-11-23 15:48:20,341 INFO src.app.services.ingest.container_pipeline_batched: [PROFILE] Batched layout detection: 25.739s
+2025-11-23 15:48:21,164 INFO src.app.services.ingest.container_pipeline_batched: [PROFILE] Segments persistence (365 segments): 0.262s
+2025-11-23 15:48:21,170 INFO src.app.services.ingest.container_pipeline_batched: Starting batched table processing for 4 tables (batch_size=8)
+The `max_size` parameter is deprecated and will be removed in v4.26. Please specify in `size['longest_edge'] instead`.
+2025-11-23 15:48:21,353 INFO timm.models._builder: Loading pretrained weights from Hugging Face hub (timm/resnet18.a1_in1k)
+2025-11-23 15:48:21,392 INFO timm.models._hub: [timm/resnet18.a1_in1k] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+2025-11-23 15:48:21,399 INFO timm.models._builder: Missing keys (fc.weight, fc.bias) discovered while loading pretrained weights. This is expected if model is being adapted.
+Some weights of the model checkpoint at microsoft/table-transformer-structure-recognition were not used when initializing TableTransformerForObjectDetection: ['model.backbone.conv_encoder.model.layer2.0.downsample.1.num_batches_tracked', 'model.backbone.conv_encoder.model.layer3.0.downsample.1.num_batches_tracked', 'model.backbone.conv_encoder.model.layer4.0.downsample.1.num_batches_tracked']
+- This IS expected if you are initializing TableTransformerForObjectDetection from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing TableTransformerForObjectDetection from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+2025-11-23 15:48:22,169 INFO src.app.services.ingest.container_pipeline_batched: [PROFILE] Batched table processing (4 tables): 0.998s
+2025-11-23 15:48:22,193 INFO src.app.services.ingest.container_pipeline_batched: Enqueuing text embeddings for container 7588c378-df4c-44f4-9cd8-444cef2e1533
+2025-11-23 15:48:23,043 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-23 15:48:24,168 INFO httpx: HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-11-23 15:48:25,184 INFO src.app.services.ingest.container_pipeline_batched: Completed BATCHED processing container 7588c378-df4c-44f4-9cd8-444cef2e1533: segments=365 figures=14 tables=4 in 32.234s
+2025-11-23 15:48:25,192 INFO scripts.add_memory_profiling: 
+[MEMORY MONITOR] Finished BATCHED PDF Processing in 32.31s
+2025-11-23 15:48:25,192 INFO scripts.add_memory_profiling:   Peak System: 21.35 GB
+2025-11-23 15:48:25,192 INFO scripts.add_memory_profiling:   Peak Process: 1.13 GB
+2025-11-23 15:48:25,192 INFO scripts.add_memory_profiling:   System Change: +7.84 GB
+2025-11-23 15:48:25,192 INFO scripts.add_memory_profiling:   Process Change: +0.89 GB
+
+[MEMORY] Initial state:
+  System: 13.50/64.00 GB (33.9%)
+  Process: 0.24 GB
+
+Created container: 7588c378-df4c-44f4-9cd8-444cef2e1533
+
+Processing PDF pages in BATCHED mode...
+
+[MEMORY] Final state:
+  System: 21.35/64.00 GB (73.2%)
+  Process: 1.13 GB
+
+Done.

@@ -2,30 +2,17 @@ from __future__ import annotations
 
 from pathlib import Path
 import logging
-from typing import List
 
-from PIL import Image
 import torch
 
 from src.app.settings import get_settings
 from .base import LayoutRegion
+from .utils import render_page_image
 
 logger = logging.getLogger(__name__)
 
 
-def _render_page_image(pdf_path: Path, page_no: int, dpi: int) -> Image.Image:
-    import fitz  # PyMuPDF
-
-    doc = fitz.open(str(pdf_path))
-    page = doc[page_no - 1]
-    zoom = dpi / 72.0
-    mat = fitz.Matrix(zoom, zoom)
-    pix = page.get_pixmap(matrix=mat, alpha=False)
-    img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-    return img
-
-
-class GotOcrProvider:
+class GOTOCRProvider:
     """OCR provider using stepfun-ai/GOT-OCR-2.0-hf via AutoProcessor + AutoModelForImageTextToText."""
 
     _model = None
@@ -36,26 +23,18 @@ class GotOcrProvider:
         if self._model is not None and self._proc is not None:
             return
         from transformers import AutoProcessor, AutoModelForImageTextToText
+        from .utils import get_torch_device_and_dtype
 
         settings = get_settings()
         model_name = getattr(settings, "pdf_ocr_model", None) or "stepfun-ai/GOT-OCR-2.0-hf"
 
-        # Select device
-        if torch.backends.mps.is_available():
-            self._device = torch.device("mps")
-        elif torch.cuda.is_available():
-            self._device = torch.device("cuda")
-        else:
-            self._device = torch.device("cpu")
+        self._device, dtype = get_torch_device_and_dtype()
+        
+        # GOT-OCR prefers float16 on MPS instead of float32
+        if self._device.type == "mps":
+            dtype = torch.float16
 
         self._proc = AutoProcessor.from_pretrained(model_name, use_fast=True)
-
-        # Choose dtype conservatively per device
-        dtype = torch.float32
-        if self._device.type == "cuda":
-            dtype = torch.bfloat16
-        elif self._device.type == "mps":
-            dtype = torch.float16
 
         self._model = AutoModelForImageTextToText.from_pretrained(
             model_name,
@@ -68,7 +47,7 @@ class GotOcrProvider:
     async def ocr_region(self, *, pdf_path: Path, page_no: int, region: LayoutRegion) -> str:
         settings = get_settings()
         dpi = settings.pdf_render_dpi
-        img = _render_page_image(pdf_path, page_no, dpi)
+        img = render_page_image(pdf_path, page_no, dpi)
         W, H = img.size
         x0 = int(max(0, min(W, region.bbox.x0 * W)))
         y0 = int(max(0, min(H, region.bbox.y0 * H)))

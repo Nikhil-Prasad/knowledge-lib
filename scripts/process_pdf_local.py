@@ -5,9 +5,17 @@ import argparse
 import asyncio
 from pathlib import Path
 import logging
+import time
 from typing import Optional
 from uuid import UUID
+from functools import wraps
+import sys
+import os
 
+# Add the project root to the path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from scripts.add_memory_profiling import MemoryMonitor, log_system_info, get_memory_info
 from src.app.db.session.session_async import AsyncSessionLocal
 from src.app.services.ingest.container_pipeline import (
     ingest_pdf_container_pipeline,
@@ -16,8 +24,32 @@ from src.app.services.ingest.container_pipeline import (
 from src.app.api.v1.ingest.schemas import IngestOptions
 
 
-async def _run(pdf_path: Path, collection_id: Optional[UUID]) -> None:
-    # Create container record and then process in the same run (no API server needed)
+# Simple profiling decorator
+def profile_stage(stage_name: str):
+    """Decorator to profile execution time of async functions"""
+    def decorator(func):
+        @wraps(func)
+        async def async_wrapper(*args, **kwargs):
+            start = time.perf_counter()
+            result = await func(*args, **kwargs)
+            elapsed = time.perf_counter() - start
+            print(f"\n[PROFILE] {stage_name}: {elapsed:.3f}s")
+            return result
+        
+        @wraps(func)
+        def sync_wrapper(*args, **kwargs):
+            start = time.perf_counter()
+            result = func(*args, **kwargs)
+            elapsed = time.perf_counter() - start
+            print(f"\n[PROFILE] {stage_name}: {elapsed:.3f}s")
+            return result
+            
+        return async_wrapper if asyncio.iscoroutinefunction(func) else sync_wrapper
+    return decorator
+
+
+@profile_stage("Container Creation")
+async def create_container(pdf_path: Path, collection_id: Optional[UUID]) -> UUID:
     async with AsyncSessionLocal() as session:
         resp = await ingest_pdf_container_pipeline(
             session,
@@ -27,11 +59,41 @@ async def _run(pdf_path: Path, collection_id: Optional[UUID]) -> None:
             title_hint=pdf_path.stem,
             collection_id=collection_id,
         )
-        container_id = resp.container_id
-    print(f"Created container: {container_id}")
-    print("Processing PDF pages (layout + text/ocr + figures/tables)...")
+        return resp.container_id
+
+
+@profile_stage("PDF Processing Pipeline") 
+async def process_pdf(container_id: UUID, pdf_path: Path) -> None:
     await process_pdf_container_async(container_id=container_id, pdf_path=pdf_path)
-    print("Done.")
+
+
+@profile_stage("Total Execution Time")
+async def _run(pdf_path: Path, collection_id: Optional[UUID]) -> None:
+    # Log initial system info
+    log_system_info()
+    
+    # Log memory before starting
+    print("\n[MEMORY] Initial state:")
+    mem_info = get_memory_info()
+    print(f"  System: {mem_info['system']['used_gb']:.2f}/{mem_info['system']['total_gb']:.2f} GB ({mem_info['system']['percent']:.1f}%)")
+    print(f"  Process: {mem_info['process']['rss_gb']:.2f} GB")
+    
+    # Create container record and then process in the same run (no API server needed)
+    with MemoryMonitor("Container Creation"):
+        container_id = await create_container(pdf_path, collection_id)
+    print(f"Created container: {container_id}")
+    
+    print("Processing PDF pages (layout + text/ocr + figures/tables)...")
+    with MemoryMonitor("PDF Processing Pipeline"):
+        await process_pdf(container_id, pdf_path)
+    
+    # Log final memory state
+    print("\n[MEMORY] Final state:")
+    mem_info = get_memory_info()
+    print(f"  System: {mem_info['system']['used_gb']:.2f}/{mem_info['system']['total_gb']:.2f} GB ({mem_info['system']['percent']:.1f}%)")
+    print(f"  Process: {mem_info['process']['rss_gb']:.2f} GB")
+    
+    print("\nDone.")
 
 
 def main() -> int:

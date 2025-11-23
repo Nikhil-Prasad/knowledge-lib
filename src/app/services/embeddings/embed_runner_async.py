@@ -28,7 +28,7 @@ async def embed_container_segments_async(container_id: UUID) -> None:
     async with AsyncSessionLocal() as session:
         result = await session.execute(
             select(TextSegment.segment_id, TextSegment.text)
-            .where(TextSegment.container_id == container_id, TextSegment.emb_v1 == None)  # noqa: E711
+            .where(TextSegment.container_id == container_id, TextSegment.emb_v1 == None)  
             .order_by(TextSegment.segment_id)
         )
         rows = list(result.all())
