@@ -1,5 +1,5 @@
 from .common import Modality, TextSegmentType, BBox, SegmentBase
-from .containers import Document, Page, TableSchemaCol, TableSet
+from .containers import Document, Page, PageAnalysis, TableSchemaCol, TableSet
 from .segments import (
     TextSegment,
     TableRow,
@@ -18,7 +18,7 @@ __all__ = [
     # common
     "Modality", "TextSegmentType", "BBox", "SegmentBase",
     # containers
-    "Document", "Page",
+    "Document", "Page", "PageAnalysis",
     # segments
     "TextSegment", "TableSchemaCol", "TableSet", "TableRow", "Figure", "AudioSegment", "VideoSegment",
     "CitationSegment", "BibliographyEntry", "Segment", "SegmentRef",

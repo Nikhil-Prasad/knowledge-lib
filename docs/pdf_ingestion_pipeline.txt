@@ -1,0 +1,166 @@
+================================================================================
+PDF Ingestion Pipeline — ASCII Overview
+================================================================================
+
+Goal
+  - Ingest PDFs (born‑digital and scans) and persist unified, SQL‑first results
+    for retrieval across modalities (text, figure, table, citation).
+
+Top‑Level Flow
+  [PDF Path/URI]
+        |
+        v
+  (Create Container row)
+        |
+        v
+  process_pdf_container_async(container_id, pdf_path)
+        |
+        +--> Per‑page enumeration (PyMuPDF) → save page renders (WEBP/PNG)
+        |
+        +--> Per‑page layout detection (HF DocLayNet DETR) → regions:
+        |       { text | table | figure | caption | other }
+        |
+        +--> Per‑page vector text spans (PyMuPDF):
+        |       - get_text("rawdict") spans → if empty, fallback get_text("words")
+        |       - normalize bboxes to [0,1] (page coords, TL origin)
+        |
+        +--> Signals → routing:
+        |       - text_coverage  := sum(span areas)
+        |       - image_coverage := figure area from layout
+        |       - sandwich_score := image_coverage * (1 - min(1, 2*text_cov))
+        |       - route_page(text_cov, image_cov, sandwich) → { digital | ocr | hybrid }
+        |       - persist PageAnalysis(container_id, page_no, route, signals)
+        |
+        +--> For each region on page (reading order y→x):
+                - text:
+                    if route in {digital,hybrid} and spans exist:
+                       select spans within region bbox → join → text_source=vector
+                    else if route in {ocr,hybrid}:
+                       OCR region via GOT‑OCR (HF) → text_source=ocr
+                    persist TextSegment(object_type=paragraph, bbox, text, text_source)
+
+                - figure:
+                    crop → save under artifacts/pages/page-#/figures/figure-<id>.webp
+                    optional: DePlot (google/deplot → Pix2Struct) with header prompt:
+                       "Generate the underlying data table of this chart."
+                       parse text → rows → create TableSet + TableRows
+                       emit JSON alongside crop: figure-<id>-deplot.json
+
+                - table:
+                    crop → Table Transformer (structure-recognition) to detect cell boxes
+                    group cells into rows (y‑bin) and sort cells by x
+                    OCR each cell via GOT → build row_text/row_json
+                    persist TableSet + TableRows (+ FTS)
+
+        +--> After page loop:
+                - pages.text := fused per‑page reading order text (joined region texts)
+                - detect References section → parse [n] entries → bibliography_entries
+                - scan pages for [n] anchors → citation_anchors (link when possible)
+                - enqueue text embeddings (OpenAI text-embedding-3-small) if enabled
+
+Artifacts (local file URIs)
+  data/artifacts/containers/<container_id>/pages/
+    ├─ page-<n>-<dpi>dpi.webp         (page renders)
+    └─ page-<n>/figures/
+         ├─ figure-<figure_id>.webp   (figure crop)
+         └─ figure-<figure_id>-deplot.json  (DePlot rows for charts; optional)
+
+Routing Details
+  - text_coverage computed from normalized span areas (overestimates; good proxy)
+  - image_coverage from layout "figure" regions
+  - sandwich_score downweights likely OCR overlays on scanned PDFs
+  - Heuristics tunable via settings (ROUTE_* thresholds)
+
+Providers / Models
+  - Pager / vector text: PyMuPDF (fitz)
+      • words fallback used if rawdict spans lack visible text
+  - Layout: HF DETR (DocLayNet) → HfLayoutDetector
+  - OCR: GOT‑OCR 2.0 (HF) → GotOcrProvider (MPS/CUDA/CPU; conservative dtype)
+  - Tables: Microsoft Table Transformer (structure‑recognition)
+      • HfTableStructureExtractor (cell boxes; then grouping + cell OCR)
+  - Charts: Google DePlot (Pix2Struct) → DePlotProvider
+      • Requires header prompt; on MPS runs full float32 to avoid mixed‑dtype errors
+
+DB Persistence (selected tables)
+  - containers(container_id, source_uri, mime_type, sha256, title, is_scanned)
+  - pages(container_id, page_no, text, image_uri, width_px, height_px)
+  - text_segments(segment_id, container_id, page_no, object_type, bbox, text,
+                  text_source ∈ {vector,ocr,fused}, text_fts, emb_v1, ...)
+  - figures(figure_id, container_id, page_no, bbox, image_uri, emb_siglip, ...)
+  - table_sets(table_id, container_id, name, n_rows, n_cols, schema, page_no, bbox)
+  - table_rows(row_id, table_id, row_index, row_json{cells}, row_text, row_text_fts, emb_v1)
+  - bibliography_entries(bib_id, container_id, label, raw_text, parsed)
+  - citation_anchors(anchor_id, container_id, page_no, marker, target_bib)
+  - page_analysis(container_id, page_no, route, text_coverage, image_coverage, sandwich_score)
+
+CLI
+  - scripts/process_pdf_local.py <pdf_path> [--log-level DEBUG]
+    • Creates container (dedupe off), processes pages/layout/OCR/fusion, crops figures,
+      runs tables/DePlot (flags), enqueues embeddings.
+
+Settings (env)
+  - PDF_LAYOUT_PROVIDER=hf
+  - PDF_LAYOUT_MODEL=cmarkea/detr-layout-detection
+  - PDF_OCR_PROVIDER=got
+  - PDF_OCR_MODEL=stepfun-ai/GOT-OCR-2.0-hf
+  - PDF_TABLE_STRUCT_MODEL=microsoft/table-transformer-structure-recognition
+  - PDF_DEPLOT_MODEL=google/deplot
+  - TABLE_ENABLE_STRUCTURE=true | false (default: true)
+  - FIGURE_ENABLE_DEPLOT=true | false (default: true)
+  - PDF_RENDER_DPI=200
+  - ARTIFACTS_BASE_DIR=data/artifacts
+  - ROUTE_TEXT_COVERAGE_HIGH / LOW, ROUTE_IMAGE_COVERAGE_HIGH, ROUTE_SANDWICH_THRESHOLD
+  - INGEST_EMBED_ON_INGEST=true | false
+
+Logging (what to expect)
+  - "Saved page N render → file://..."
+  - "Page N: route=... text_cov=... spans=... regions=..."
+  - "Page N zone M(text): using vector spans=... len=..." or "using OCR len=..."
+  - "Page N zone M(figure): saved crop → file://..."
+  - "Page N figure <id> → DePlot rows=K" + JSON saved message
+  - "Page N zone M(table): cells=... rows=... cols≈..." (when tables detected)
+  - "Detected References section starting at page ..."
+  - "Enqueuing text embeddings for container ..."
+
+Error Handling / Notes
+  - Providers now fail fast in prod (no implicit no‑op fallbacks). Misconfig raises.
+  - DePlot on MPS uses float32 end‑to‑end to avoid mixed‑dtype errors.
+  - Vector text spans use a robust words‑fallback to avoid zero‑coverage on born‑digital PDFs.
+  - Table grouping is naive (y‑bin); refine spans/headers/merges in future iterations.
+
+Key Modules
+  - src/app/services/ingest/container_pipeline.py
+  - src/app/services/ingest/providers/
+      • pymupdf_pager.py (pages + text spans)
+      • hf.py (layout)
+      • got_ocr.py (OCR)
+      • table_transformer_hf.py (table cells)
+      • deplot.py (chart‑to‑data)
+  - scripts/process_pdf_local.py (CLI)
+
+Future Enhancements (tracked in memory.md)
+  - Better table structure (spans, headers, merged cells)
+  - Vision embeddings for figures (SigLIP runner)
+  - Persist raw layout zones for overlays/audits
+  - Provenance links (figure → derived table)
+  - Routing quality: image XObjects, rotations
+  - Citation parsing (author‑year, offsets)
+
+ASCII Sketch (per‑page)
+  ┌──────────┐   ┌───────────────┐   ┌─────────────┐   ┌──────────┐
+  │ Page N   │→→│ Layout (HF)   │→→│ Route        │→→│ Regions   │
+  └──────────┘   └───────────────┘   │ text/img/sand│   (iterate) │
+        │           ▲                └─────────────┘   └──────────┘
+        │           │                         │
+        │    ┌──────────────┐                 │
+        └──→ │ PyMuPDF spans│ (words fallback)│
+             └──────────────┘                 │
+                │                             │
+      ┌─────────┴─────────┐        ┌──────────┴─────────┐        ┌──────────┴───────────┐
+      │ text region       │        │ table region       │        │ figure region        │
+      │ vector or OCR     │        │ TT cells + OCR     │        │ crop + DePlot (opt.) │
+      └─────────┬─────────┘        └──────────┬─────────┘        └──────────┬───────────┘
+                │                             │                               │
+         TextSegments                     TableSet/Rows                    Figure + JSON
+
+================================================================================

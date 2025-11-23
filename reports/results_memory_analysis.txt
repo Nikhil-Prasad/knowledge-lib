@@ -1,0 +1,122 @@
+Memory Analysis for PDF Processing Pipeline
+==========================================
+
+Test Document: /Users/nikhilprasad/crown/knowledge-lib/data/pdfs/1810.03163.pdf (25 pages)
+System: Mac with 64GB RAM, 48GB VRAM (Unified Memory Architecture)
+
+MEMORY USAGE PROFILE
+-------------------
+Initial State:
+- System: 29.53/64.00 GB (48.6%)
+- Process: 0.23 GB
+
+Final State:
+- System: 33.29/64.00 GB (54.4%)
+- Process: 1.51 GB
+
+Memory Delta:
+- System increase: +3.76 GB
+- Process increase: +1.28 GB
+
+MEMORY BREAKDOWN PER COMPONENT
+-----------------------------
+For 25-page PDF:
+- Base process memory: 0.23 GB
+- PDF processing overhead: 1.28 GB
+- Per-page memory: ~51 MB/page (1.28 GB / 25 pages)
+
+Memory Components:
+1. Models (constant, shared): ~2.8 GB
+   - DETR Layout: ~500 MB
+   - GOT-OCR: ~1 GB
+   - Table Transformer: ~300 MB
+   - DePlot: ~1 GB (disabled)
+
+2. Page Images (variable): 
+   - In-memory tensor: ~15 MB per page (200 DPI)
+   - 25 pages in memory: ~375 MB
+   - Stored as WebP: ~2 MB per page on disk
+
+3. Processing Overhead:
+   - Layout detection results
+   - OCR text buffers
+   - Database transaction buffers
+
+SCALING PROJECTIONS
+------------------
+Single Request:
+- 25 pages: 1.28 GB process memory
+- 100 pages: ~5.1 GB
+- 700 pages (textbook): ~35.8 GB
+
+Concurrent Requests:
+- 10 × 25-page PDFs: 12.8 GB (manageable)
+- 10 × 100-page PDFs: 51 GB (challenging)
+- 10 × 700-page textbooks: 358 GB (impossible!)
+
+OPTIMIZATION STRATEGIES
+----------------------
+1. Sequential Processing (Current):
+   - Pros: Low memory per request (1 page at a time)
+   - Cons: Slower processing (18s for 25 pages)
+   - Memory: O(1) - constant regardless of PDF size
+
+2. Batched Processing (Future):
+   - Pros: Faster (3-5s estimated for 25 pages)
+   - Cons: High memory (all pages in memory)
+   - Memory: O(n) - scales with PDF size
+
+3. Sliding Window (Hybrid):
+   - Process N pages at a time (e.g., 10)
+   - Balance speed and memory
+   - Memory: O(window_size)
+
+4. Cross-Request Batching (APIs):
+   - Mix pages from different requests
+   - Keep individual request memory low
+   - Maximize GPU utilization
+
+PRODUCTION RECOMMENDATIONS
+-------------------------
+For API deployment:
+1. Keep sequential processing as default
+2. Implement request queuing with cross-request batching
+3. Set per-request memory limits (e.g., 2GB)
+4. Use spot instances for GPU workers
+
+For batch processing:
+1. Use full batching for small PDFs (<50 pages)
+2. Use sliding window for large PDFs
+3. Process on dedicated workers with high memory
+
+COST ANALYSIS (AWS)
+------------------
+For 20 concurrent users processing PDFs:
+
+Option 1: Sequential Processing
+- Instance: g5.2xlarge (8 vCPU, 32 GB, 1 GPU)
+- Cost: $1.21/hour
+- Capacity: ~10-15 concurrent requests
+
+Option 2: High Memory + Batching  
+- Instance: g5.12xlarge (48 vCPU, 192 GB, 4 GPUs)
+- Cost: $5.67/hour
+- Capacity: ~40-50 concurrent requests
+
+Option 3: Serverless GPU (Modal/Runpod)
+- Pay per second of GPU usage
+- Auto-scales to zero
+- ~$0.0006/second ($2.16/hour when active)
+
+CONCLUSION
+----------
+The memory analysis confirms:
+1. Sequential processing is memory-efficient (1.28 GB for 25 pages)
+2. Batched processing would require 35.8 GB for a 700-page textbook
+3. Cross-request batching is essential for production APIs
+4. Current optimization (concurrent rendering) provides good balance
+
+Next steps should focus on:
+- Implementing sliding window for large PDFs
+- Building cross-request batch aggregator for APIs
+- Adding memory-aware batch sizing

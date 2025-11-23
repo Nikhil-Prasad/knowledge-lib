@@ -1,0 +1,43 @@
+PDF Processing Baseline Performance Results
+==========================================
+Date: 2025-11-23 14:39:40
+PDF: /Users/nikhilprasad/crown/knowledge-lib/data/pdfs/1810.03163.pdf (25 pages)
+
+Timing Breakdown
+----------------
+[PROFILE] Container Creation: 0.056s
+[PROFILE] Page enumeration: 0.108s
+[PROFILE] Page rendering (25 pages): 5.063s
+[PROFILE] Page processing (layout + OCR + extraction): 13.624s
+[PROFILE] Segments persistence (365 segments): 0.143s
+[PROFILE] Figures persistence (14 figures): 0.382s
+[PROFILE] Tables persistence (4 tables): 0.898s
+[PROFILE] Total pipeline execution time: 23.245s
+[PROFILE] PDF Processing Pipeline: 23.251s
+[PROFILE] Total Execution Time: 23.307s
+
+Performance Analysis
+-------------------
+- Page rendering: ~202ms per page (5.063s / 25 pages)
+- Page processing: ~545ms per page (13.624s / 25 pages)
+- Rendering + Processing = 18.687s (80% of total time)
+
+Bottlenecks Identified
+---------------------
+1. Sequential page rendering (PyMuPDF) - 5.063s
+2. Sequential page processing (layout detection + text extraction + OCR) - 13.624s
+3. Multiple DB sessions opening/closing during processing
+
+Expected Improvements with Optimization
+---------------------------------------
+- Page rendering with ThreadPool(4): 5s → ~1.5s
+- Page processing with AsyncIO + ThreadPool: 13.6s → ~3.5s
+- DB batch operations: Minor improvement
+- Expected total time: 23s → ~9-10s (2.5x speedup)
+
+System Details
+--------------
+- Python 3.12
+- macOS (MPS available)
+- Models: DocLayNet DETR for layout, GOT-OCR for text extraction
+- PDF renderer: PyMuPDF (fitz)

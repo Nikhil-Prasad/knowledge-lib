@@ -1,0 +1,44 @@
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO     
+[SYSTEM INFO]
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       CPU Count: 14
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       Total RAM: 64.0 GB
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       Available RAM: 46.5 GB
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       GPU: Apple Silicon (MPS) - Unified Memory Architecture
+2025-11-23 16:45:16 __main__                       INFO     
+[MEMORY] Initial state:
+2025-11-23 16:45:16 __main__                       INFO       System: 13.36/64.00 GB
+2025-11-23 16:45:16 __main__                       INFO       Process: 0.24 GB
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO     
+[MEMORY MONITOR] Starting PDF Processing
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       System: 13.36/64.00 GB
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       Process: 0.24 GB
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO     
+[MEMORY MONITOR] Finished PDF Processing in 0.00s
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       Peak System: 13.36 GB
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       Peak Process: 0.24 GB
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       System Change: +0.00 GB
+2025-11-23 16:45:16 scripts.add_memory_profiling   INFO       Process Change: +0.00 GB
+Traceback (most recent call last):
+  File "/Users/nikhilprasad/crown/knowledge-lib/scripts/process_pdf_microbatched.py", line 88, in main
+    await process_pdf_container_microbatched(
+  File "/Users/nikhilprasad/crown/knowledge-lib/src/app/services/ingest/container_pipeline_microbatched.py", line 101, in process_pdf_container_microbatched
+    from src.app.services.ingest.container_pipeline import create_pdf_container
+ImportError: cannot import name 'create_pdf_container' from 'src.app.services.ingest.container_pipeline' (/Users/nikhilprasad/crown/knowledge-lib/src/app/services/ingest/container_pipeline.py)
+2025-11-23 16:45:16 __main__                       INFO     
+[MEMORY] Final state:
+2025-11-23 16:45:16 __main__                       INFO       System: 13.36/64.00 GB
+2025-11-23 16:45:16 __main__                       INFO       Process: 0.24 GB
+
+Created container: 3ca514aa-f925-4e82-a59f-45c907112b0e
+
+Processing PDF pages in MICROBATCHED mode with GPU lanes...
+
+Error processing PDF: cannot import name 'create_pdf_container' from 'src.app.services.ingest.container_pipeline' (/Users/nikhilprasad/crown/knowledge-lib/src/app/services/ingest/container_pipeline.py)
+
+[MEMORY] Summary:
+  Duration: 0.00s
+  Peak system memory: 13.36 GB
+  System memory change: -0.00 GB
+  Process memory change: +0.00 GB
+
+Done.

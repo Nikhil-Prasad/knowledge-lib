@@ -23,6 +23,7 @@ from src.app.api.v1.ingest.schemas import (
     UploadRefSource,
 )
 from . import text_pipeline
+from .container_pipeline import ingest_pdf_container_pipeline
 
 
 # ---------------- Identify/Resolve helpers (text-only focus for now) ---------------- #
@@ -44,6 +45,8 @@ def infer_mime_from_filename(name: Optional[str]) -> Optional[str]:
         return "text/plain"
     if ext in {".md", ".markdown"}:
         return "text/markdown"
+    if ext == ".pdf":
+        return "application/pdf"
     return None
 
 
@@ -103,6 +106,16 @@ async def ingest(session: AsyncSession, req: IngestRequest) -> IngestResponse:
         title_hint = path.stem
 
         mime = src.content_type_hint or infer_mime_from_filename(filename) or "text/plain"
+        if mime == "application/pdf":
+            # Route PDFs to container pipeline (scaffold). Heavy parsing happens in a job.
+            return await ingest_pdf_container_pipeline(
+                session,
+                pdf_path=path,
+                options=req.options,
+                source_uri=source_uri,
+                title_hint=title_hint,
+                collection_id=req.collection_id,
+            )
         if not is_text_mime(mime):
             raise NotImplementedError(f"upload_ref non-text not supported yet (mime={mime})")
 

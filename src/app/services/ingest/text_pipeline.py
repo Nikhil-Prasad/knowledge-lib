@@ -173,11 +173,13 @@ async def ingest_text_segment(
     text: str,
     section_path: Optional[str] = None,
     bbox: Optional[dict] = None,
+    text_source: Optional[str] = None,
 ) -> UUID:
     """Insert a single TextSegment row and return its segment_id.
 
     Notes:
-    - Computes FTS value via `to_tsvector('simple', :text)` using a SQL function call.
+    - FTS value is maintained by a DB trigger (`text_segments_fts_trigger`) which
+      computes `to_tsvector('pg_catalog.english', unaccent(text))` on insert/update.
     - Embeddings are left null; a background job or on-demand call can populate them.
     """
 
@@ -188,6 +190,7 @@ async def ingest_text_segment(
         section_path=section_path,
         bbox=bbox,
         text=text,
+        text_source=text_source,
     )
     session.add(seg)
     # Flush to obtain the generated segment_id without committing the transaction

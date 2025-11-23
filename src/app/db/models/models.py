@@ -85,6 +85,10 @@ class TextSegment(Base):
     section_path: Mapped[Optional[str]] = mapped_column(Text)
     bbox:         Mapped[Optional[dict]] = mapped_column(JSON)                   
     text:         Mapped[str]           = mapped_column(Text, nullable=False)
+    text_source:  Mapped[Optional[str]] = mapped_column(
+        SAEnum('vector', 'ocr', 'fused', name='text_source_type', native_enum=True),
+        nullable=True,
+    )
 
     text_fts: Mapped[str] = mapped_column(
         TSVECTOR,
@@ -131,6 +135,7 @@ class Figure(Base):
     image_uri: Mapped[Optional[str]] = mapped_column(Text)
 
     emb_v1:      Mapped[Optional[List[float]]] = mapped_column(Vector(1536))
+    emb_siglip:  Mapped[Optional[List[float]]] = mapped_column(Vector(768))
     emb_model:   Mapped[Optional[str]] = mapped_column(Text)
     emb_version: Mapped[Optional[str]] = mapped_column(Text)
 
@@ -141,6 +146,12 @@ class Figure(Base):
             "emb_v1",
             postgresql_using="hnsw",
             postgresql_ops={"emb_v1": "vector_cosine_ops"},
+        ),
+        Index(
+            "idx_figures_emb_siglip",
+            "emb_siglip",
+            postgresql_using="hnsw",
+            postgresql_ops={"emb_siglip": "vector_cosine_ops"},
         ),
     )
 
@@ -318,6 +329,26 @@ class LinkAnchor(Base):
 
 
 # ---------------- collections & association ---------------- #
+
+class PageAnalysis(Base):
+    __tablename__ = "page_analysis"
+
+    container_id:  Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("containers.container_id", ondelete="CASCADE"), primary_key=True
+    )
+    page_no: Mapped[int] = mapped_column(Integer, primary_key=True)
+
+    route: Mapped[str] = mapped_column(String, nullable=False)  # 'digital' | 'ocr' | 'hybrid'
+    text_coverage: Mapped[Optional[float]] = mapped_column(Float)
+    image_coverage: Mapped[Optional[float]] = mapped_column(Float)
+    sandwich_score: Mapped[Optional[float]] = mapped_column(Float)
+    quality_score: Mapped[Optional[float]] = mapped_column(Float)
+    timings: Mapped[Optional[dict]] = mapped_column(JSON)
+    version: Mapped[Optional[str]] = mapped_column(Text)
+
+    __table_args__ = (
+        Index("idx_page_analysis_container_page", "container_id", "page_no"),
+    )
 
 class Collection(Base):
     __tablename__ = "collections"

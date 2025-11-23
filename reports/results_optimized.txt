@@ -1,0 +1,123 @@
+PDF Processing Pipeline Optimization Results
+===========================================
+
+Test Document: /Users/nikhilprasad/crown/knowledge-lib/data/pdfs/1810.03163.pdf (25 pages)
+Date: November 23, 2025
+
+BASELINE PERFORMANCE (Non-Optimized)
+------------------------------------
+Container Creation: 0.051s
+PDF Processing Pipeline: 21.149s
+  - Page enumeration: 0.061s
+  - Page rendering (25 pages): 4.042s
+  - Page processing (layout + OCR + extraction): 13.026s
+  - Segments persistence (365 segments): 0.137s
+  - Figures persistence (14 figures): 0.402s
+  - Tables persistence (4 tables): 0.972s
+Total Execution Time: 21.206s
+
+OPTIMIZED PERFORMANCE (With Concurrent Page Rendering)
+------------------------------------------------------
+Configuration: torch_num_threads=1 (single thread)
+Container Creation: 0.043s
+PDF Processing Pipeline: 18.557s
+  - Page enumeration: 0.061s
+  - Concurrent page rendering (25 pages): 1.629s (4 workers)
+  - Page processing (layout + OCR + extraction): 12.741s
+  - Segments persistence (365 segments): 0.137s
+  - Figures persistence (14 figures): 0.386s
+  - Tables persistence (4 tables): 0.855s
+Total Execution Time: 18.608s
+
+OPTIMIZED PERFORMANCE (With PyTorch Default Threading)
+------------------------------------------------------
+Configuration: torch_num_threads=0 (PyTorch defaults)
+Container Creation: 0.040s
+PDF Processing Pipeline: 18.089s
+  - Page enumeration: 0.064s
+  - Concurrent page rendering (25 pages): 1.623s (4 workers)
+  - Page processing (layout + OCR + extraction): 12.795s
+  - Segments persistence (365 segments): 0.139s
+  - Figures persistence (14 figures): 0.391s
+  - Tables persistence (4 tables): 0.848s
+Total Execution Time: 18.135s
+
+PERFORMANCE IMPROVEMENTS
+------------------------
+Page Rendering: 4.042s → 1.623s (59.8% reduction)
+Total Pipeline: 21.149s → 18.089s (14.5% reduction)
+Total Execution: 21.206s → 18.135s (14.5% reduction)
+
+PyTorch Threading Impact:
+- Single thread (torch_num_threads=1): 18.608s
+- PyTorch defaults (torch_num_threads=0): 18.135s
+- Additional improvement with PyTorch defaults: 2.5% faster
+
+KEY OPTIMIZATIONS IMPLEMENTED
+-----------------------------
+1. Concurrent Page Rendering:
+   - Used ThreadPoolExecutor with configurable max_workers (default: 4)
+   - Renders multiple pages in parallel instead of sequentially
+   - Each page render is I/O bound (file operations), making it ideal for threading
+
+2. PyTorch Thread Configuration:
+   - Made configurable via torch_num_threads setting (0 = PyTorch defaults)
+   - Testing showed PyTorch defaults perform better than single threading
+   - Allows PyTorch to utilize multiple CPU threads for operations
+
+3. Configuration Settings Added:
+   - pdf_render_max_workers: 4 (number of threads for page rendering)
+   - pdf_process_max_workers: 2 (for future model inference parallelization)
+   - pdf_max_concurrent_pages: 8 (memory limit for concurrent processing)
+   - torch_num_threads: 0 (PyTorch default threading - best performance)
+
+BOTTLENECK ANALYSIS
+-------------------
+After optimization, the main bottlenecks are:
+1. Page processing (layout + OCR): 12.741s (68.6% of pipeline time)
+   - Layout detection using DETR model
+   - Sequential processing per page
+   - Model inference overhead
+
+2. Embedding generation: ~1.2s (included in pipeline time)
+   - OpenAI API calls for text embeddings
+   - Network latency
+
+FUTURE OPTIMIZATION OPPORTUNITIES
+---------------------------------
+1. Concurrent Page Processing:
+   - Process multiple pages in parallel for layout detection
+   - Need to balance memory usage with parallelism
+   - Estimated improvement: 20-30% reduction in processing time
+
+2. Batch Processing for Model Inference:
+   - Batch multiple pages for layout detection
+   - Reduce model loading overhead
+   - Estimated improvement: 10-15% reduction
+
+3. Database Operation Optimization:
+   - Batch inserts for segments, figures, and tables
+   - Reduce transaction overhead
+   - Estimated improvement: 5-10% reduction
+
+4. Model Optimization:
+   - Use smaller/faster models for layout detection
+   - Implement model caching and warmup
+   - Consider GPU acceleration if available
+
+CONCLUSION
+----------
+The concurrent page rendering optimization combined with proper PyTorch threading
+configuration has provided a significant improvement of 14.5% in total execution time.
+
+Key findings:
+1. Concurrent page rendering reduced rendering time by 59.8%
+2. Using PyTorch default threading (torch_num_threads=0) provided an additional
+   2.5% performance improvement over single-threaded configuration
+3. The initial assumption about MPS oversubscription was incorrect - PyTorch's
+   default thread management actually performs better on this system
+
+This demonstrates the importance of testing different configurations rather than
+making assumptions about thread management. Further optimizations focusing on
+the page processing stage (layout + OCR) could yield additional performance
+improvements of 20-40%.
